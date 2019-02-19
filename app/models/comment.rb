@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: comments
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  commentable_type :string
 #  commentable_id   :integer
 #  comment_by       :integer
@@ -20,20 +19,22 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
 
   validates :comment, length: { minimum: 0, maximum: 1000 }, presence: true
-  validates :commentable_type, :commentable_id, :comment_by, presence: true
+  validates :commentable_type, inclusion: %w[moment strategy meeting]
+  validates :commentable_id, :comment_by, presence: true
   validates :visibility, inclusion: %w[all private]
 
   before_save :array_data
 
   def array_data
     return unless viewers.is_a?(Array)
+
     self.viewers = viewers.collect(&:to_i)
   end
 
   class << self
     def create_from!(params)
       viewers = params[:viewers].blank? ? [] : [params[:viewers].to_i]
-
+      params[:visibility] = 'all' if params[:visibility].blank?
       Comment.create!(
         commentable_type: params[:commentable_type],
         commentable_id: params[:commentable_id],
@@ -43,6 +44,13 @@ class Comment < ApplicationRecord
         viewers: viewers
       )
     end
+
+    def comments_from(data)
+      Comment.where(
+        commentable_id: data.id,
+        commentable_type: data.class.name.downcase
+      )
+    end
   end
 
   # Notify commentable_id user that they have a new comment
@@ -50,6 +58,7 @@ class Comment < ApplicationRecord
     association = associated_record
     return handle_meeting(association, creator) if commentable_type == 'meeting'
     return unless notify_of_creation?(association)
+
     send_notification!(creator, association, user_to_notify(association))
   end
 
@@ -61,17 +70,17 @@ class Comment < ApplicationRecord
 
   # Notify MeetingMembers except for commenter that there is a new comment
   def handle_meeting(association, creator)
-    MeetingMember.where(meetingid: commentable_id)
-                 .where.not(userid: creator.id)
+    MeetingMember.where(meeting_id: commentable_id)
+                 .where.not(user_id: creator.id)
                  .find_each do |member|
       data = notification_data(creator, association, type, unique_id(type))
-      send_notification(data, notifications!(data, member.userid),
-                        member.userid)
+      send_notification(data, notifications!(data, member.user_id),
+                        member.user_id)
     end
   end
 
   def notification_data(creator, association, type, unique_id)
-    JSON.generate(
+    {
       user: creator.name,
       commentid: id,
       comment: comment[0..80],
@@ -80,17 +89,23 @@ class Comment < ApplicationRecord
       typeid: association.id,
       uniqueid: unique_id,
       typename: association.name
-    )
+    }.to_json
   end
 
-  def notifications!(data, userid)
-    Notification.create!(userid: userid, uniqueid: unique_id(type), data: data)
-    model_data = Notification.where(userid: userid)
+  def notifications!(data, user_id)
+    Notification.create!(
+      user_id: user_id,
+      uniqueid: unique_id(type),
+      data: data
+    )
+    model_data = Notification.where(user_id: user_id)
     model_data.order('created_at')
   end
 
   def notify_of_creation?(association)
-    association.userid != comment_by && association.viewers.include?(comment_by)
+    association.user_id != comment_by && association.viewers.include?(
+      comment_by
+    )
   end
 
   def send_notification(data, notifications, user_id)
@@ -101,6 +116,7 @@ class Comment < ApplicationRecord
 
   def send_notification!(creator, association, user_id)
     return if User.find(user_id).nil?
+
     data = notification_data(creator, association, type, unique_id(type))
     send_notification(data, notifications!(data, user_id), user_id)
   end
@@ -114,6 +130,6 @@ class Comment < ApplicationRecord
   end
 
   def user_to_notify(association)
-    association.userid == comment_by ? viewers.first : association.userid
+    association.user_id == comment_by ? viewers.first : association.user_id
   end
 end

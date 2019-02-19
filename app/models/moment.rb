@@ -3,7 +3,7 @@
 #
 # Table name: moments
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  category                :text
 #  name                    :string
 #  mood                    :text
@@ -11,15 +11,16 @@
 #  fix                     :text
 #  created_at              :datetime
 #  updated_at              :datetime
-#  published_at            :datetime
-#  userid                  :integer
+#  user_id                 :integer
 #  viewers                 :text
 #  comment                 :boolean
 #  strategy                :text
 #  slug                    :string
 #  secret_share_identifier :uuid
 #  secret_share_expires_at :datetime
+#  published_at            :datetime
 #
+
 class Moment < ApplicationRecord
   include Viewer
   extend FriendlyId
@@ -30,15 +31,18 @@ class Moment < ApplicationRecord
   serialize :mood, Array
   serialize :strategy, Array
 
-  before_save :array_data
+  before_save :category_array_data
+  before_save :viewers_array_data
+  before_save :mood_array_data
+  before_save :strategy_array_data
 
-  belongs_to :user, foreign_key: :userid
+  belongs_to :user
+
   has_many :comments, as: :commentable
 
   validates :comment, inclusion: [true, false]
-  validates :userid, :name, :why, presence: true
-  validates :why, length: { minimum: 1, maximum: 2000 }
-  validates :fix, length: { maximum: 2000 }
+  validates :user_id, :name, :why, presence: true
+  validates :why, length: { minimum: 1 }
   validates :secret_share_expires_at,
             presence: true, if: :secret_share_identifier?
 
@@ -47,40 +51,41 @@ class Moment < ApplicationRecord
 
   def self.find_secret_share!(identifier)
     find_by!(
-      'secret_share_expires_at > NOW()',
+      # 'secret_share_expires_at > NOW()', TODO: Turn off temporarily
       secret_share_identifier: identifier
     )
   end
 
-  def array_data
+  def category_array_data
     self.category = category.collect(&:to_i) if category.is_a?(Array)
+  end
+
+  def viewers_array_data
     self.viewers = viewers.collect(&:to_i) if viewers.is_a?(Array)
+  end
+
+  def mood_array_data
     self.mood = mood.collect(&:to_i) if mood.is_a?(Array)
+  end
+
+  def strategy_array_data
     self.strategy = strategy.collect(&:to_i) if strategy.is_a?(Array)
   end
 
-  def category_name
-    category.try(:name)
-  end
-
-  def mood_name
-    mood.try(:name)
-  end
-
   def owned_by?(user)
-    user&.id == userid
+    user&.id == user_id
   end
 
   def published?
-    !published_at.nil?
+    published_at.present?
   end
 
   def shared?
-    secret_share_identifier? &&
-      Time.zone.now < secret_share_expires_at
+    secret_share_identifier?
+    # && Time.zone.now < secret_share_expires_at TODO: Turn off temporarily
   end
 
-  def strategy_name
-    strategy.try(:name)
+  def comments
+    Comment.comments_from(self)
   end
 end

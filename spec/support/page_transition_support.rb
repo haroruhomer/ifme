@@ -5,9 +5,14 @@ module PageTransitionSupport
     within 'select[name=locale]' do
       find("option[value=#{language_code}]").click
       expect(
-        find("option[value=#{language_code}][selected]", wait: 5)
-      ).to be_present
+        find("option[value=#{language_code}]", wait: 10)
+      ).to be_visible
     end
+  end
+
+  def change_page(trigger, check_for_element, condition = be_present)
+    trigger.call
+    expect(find(check_for_element, wait: 10)).to condition
   end
 end
 

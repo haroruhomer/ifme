@@ -1,0 +1,23 @@
+<% if local_assigns[:data_type] == 'category' || local_assigns[:data_type] == 'mood' || local_assigns[:data_type] == 'strategy' %>
+  <div class="smallMarginTop">
+    <% usage = tag_usage(local_assigns[:data], local_assigns[:data_type], local_assigns[:user_id]) %>
+    <% if local_assigns[:data_type] == 'category' %>
+      <% moments = usage[0] %>
+      <% strategies = usage[1] %>
+      <% if moments.length > 0 %>
+        <div class="title"><%= t('moments.tagged_moments') %></div>
+        <%= render partial: '/tag_usage/stories', locals: { data: moments } %>
+      <% end %>
+      <% if strategies.any? %>
+        <div class="title"><%= t('strategies.tagged_strategies') %></div>
+        <%= render partial: '/tag_usage/stories', locals: { data: strategies } %>
+      <% end %>
+    <% else %>
+      <% moments = usage %>
+      <% if moments.any? %>
+        <div class="title"><%= t('moments.tagged_moments') %></div>
+        <%= render partial: '/tag_usage/stories', locals: { data: moments } %>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>

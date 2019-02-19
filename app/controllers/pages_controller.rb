@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
+  include StoriesHelper
+
   skip_before_action :if_not_signed_in
 
   def home
@@ -11,12 +13,8 @@ class PagesController < ApplicationController
 
       load_dashboard_data if @stories.present? && @stories.count.positive?
     else
-      @posts = set_posts
+      @posts = fetch_posts
     end
-  end
-
-  def blog
-    @posts = set_posts
   end
 
   def contribute
@@ -29,9 +27,13 @@ class PagesController < ApplicationController
   end
 
   def toggle_locale
-    return render json: { signed_out: true } unless user_signed_in?
-
-    change_locale!(params[:locale])
+    if !user_signed_in? ||
+       (user_signed_in? && current_user.locale != params[:locale] &&
+        current_user.update(locale: params[:locale]))
+      render json: {}, status: :ok
+    else
+      render json: {}, status: :bad_request
+    end
   end
 
   def press
@@ -39,10 +41,7 @@ class PagesController < ApplicationController
   end
 
   def resources
-    @communities = fetch_resources_for('communities')
-    @education = fetch_resources_for('education')
-    @hotlines = fetch_resources_for('hotlines')
-    @services = fetch_resources_for('services')
+    @resources = fetch_resources
   end
 
   def about; end
@@ -53,20 +52,8 @@ class PagesController < ApplicationController
 
   private
 
-  def change_locale!(locale)
-    response_key =
-      if locale == current_user.locale
-        :signed_in_no_reload
-      else
-        :signed_in_reload
-      end
-
-    current_user.update!(locale: locale)
-    render json: { response_key => locale }
-  end
-
   def load_dashboard_data
-    params = { userid: current_user.id }
+    params = { user_id: current_user.id }
 
     @moment = Moment.new
     @categories = Category.where(params).order(created_at: :desc)
@@ -96,25 +83,34 @@ class PagesController < ApplicationController
     posts = []
     medium.posts.each do |post|
       posts.push(
-        'link_name' => post[1]['title'],
-        'link' => "https://medium.com/ifme/#{post[1]['uniqueSlug']}",
-        'author' => parse_author(post)
+        link_name: post[1]['title'],
+        link: "https://medium.com/ifme/#{post[1]['uniqueSlug']}",
+        author: parse_author(post)
       )
     end
     posts
-  end
-
-  def set_posts
-    non_medium_posts = JSON.parse(File.read('doc/pages/posts.json'))
-    fetch_posts.concat(non_medium_posts.reverse)
   end
 
   def set_press
     JSON.parse(File.read('doc/pages/press.json')).reverse
   end
 
-  def fetch_resources_for(resource_type)
+  def modify_resources(resource_type)
     resources = JSON.parse(File.read("doc/pages/#{resource_type}.json"))
-    resources.sort_by! { |r| r['name'].downcase }
+    resources.each do |item|
+      item['type'] = t("pages.resources.#{resource_type}")
+      item['tags'].map! { |tag| t("pages.resources.tags.#{tag}") }
+      item['languages'].map! { |language| t("languages.#{language}") }
+    end
+    resources
+  end
+
+  def fetch_resources
+    new_resources = []
+    resource_types = %w[communities education hotlines services]
+    resource_types.each do |resource_type|
+      new_resources += modify_resources(resource_type)
+    end
+    new_resources.sort_by! { |r| r['name'].downcase }
   end
 end

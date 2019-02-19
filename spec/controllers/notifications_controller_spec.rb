@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 RSpec.describe NotificationsController, type: :controller do
   describe '#destroy' do
-    let(:user) { FactoryGirl.create(:user1) }
-    let(:other_user) { FactoryGirl.create(:user2) }
+    let(:user) { FactoryBot.create(:user1) }
+    let(:other_user) { FactoryBot.create(:user2) }
     let(:notification_owner) { user }
     let!(:notification) do
-      FactoryGirl.create(:notification, user: notification_owner)
+      FactoryBot.create(:notification, user: notification_owner)
     end
 
     context 'when the user is signed in' do
@@ -114,10 +116,10 @@ RSpec.describe NotificationsController, type: :controller do
   end
 
   describe '#clear' do
-    let(:user) { FactoryGirl.create(:user1) }
-    let(:other_user) { FactoryGirl.create(:user2) }
+    let(:user) { FactoryBot.create(:user1) }
+    let(:other_user) { FactoryBot.create(:user2) }
     let!(:other_user_notification) do
-      FactoryGirl.create(:notification, user: other_user)
+      FactoryBot.create(:notification, user: other_user)
     end
 
     context 'when the user is signed in' do
@@ -127,32 +129,32 @@ RSpec.describe NotificationsController, type: :controller do
 
       context 'when the user has notifications' do
         let!(:notification) do
-          FactoryGirl.create(:notification, user: user)
+          FactoryBot.create(:notification, user: user)
         end
 
         let!(:notification_two) do
-          FactoryGirl.create(:notification, user: user)
+          FactoryBot.create(:notification, user: user)
         end
 
         it 'deletes all notifications belonging to the current user' do
-          expect(Notification.where(userid: user.id).count).to eq(2)
+          expect(Notification.where(user_id: user.id).count).to eq(2)
 
           delete :clear
-          expect(Notification.where(userid: user.id).count).to eq(0)
+          expect(Notification.where(user_id: user.id).count).to eq(0)
         end
 
         it 'does not delete notifications belonging to other users' do
-          expect(Notification.where(userid: other_user.id).count).to eq(1)
+          expect(Notification.where(user_id: other_user.id).count).to eq(1)
 
           delete :clear
-          expect(Notification.where(userid: other_user.id).count).to eq(1)
+          expect(Notification.where(user_id: other_user.id).count).to eq(1)
         end
       end
 
       context 'when the user does not have notifications' do
         it 'does does not delete any notifications' do
           delete :clear
-          expect(Notification.where(userid: user.id)).to be_empty
+          expect(Notification.where(user_id: user.id)).to be_empty
         end
       end
 
@@ -190,23 +192,24 @@ RSpec.describe NotificationsController, type: :controller do
   end
 
   describe '#fetch_notifications' do
-    let(:user) { FactoryGirl.create(:user1) }
-    let(:other_user) { FactoryGirl.create(:user2) }
+    let(:user) { FactoryBot.create(:user1) }
+    let(:other_user) { FactoryBot.create(:user2) }
     let!(:other_user_notification) do
-      FactoryGirl.create(:notification, user: other_user)
+      FactoryBot.create(:notification, user: other_user)
     end
 
     context 'when the user is signed in' do
       let!(:notification) do
-        FactoryGirl.create(:notification, user: user)
+        FactoryBot.create(:notification, user: user)
       end
 
       let!(:notification_two) do
-        FactoryGirl.create(:notification, user: user)
+        FactoryBot.create(:notification, user: user)
       end
 
+      let (:notification_link) { '<a id="MyString" href="/moments/1">Julia Nguyen commented "Hello" on typename</a>' }
       let(:expected_result) do
-        { fetch_notifications: [notification, notification_two] }.to_json
+        { fetch_notifications: [notification_link, notification_link] }.to_json
       end
 
       before do
@@ -244,8 +247,8 @@ RSpec.describe NotificationsController, type: :controller do
     end
   end
 
-  describe 'signed_in' do
-    let(:user) { FactoryGirl.create(:user1) }
+  describe '#signed_in' do
+    let(:user) { FactoryBot.create(:user1) }
 
     context 'when the user is signed in' do
       before do

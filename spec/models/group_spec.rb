@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: groups
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  name        :string
 #  created_at  :datetime
 #  updated_at  :datetime
@@ -11,21 +12,21 @@
 #
 
 describe Group do
-  it "creates a group" do
+  it 'creates a group' do
     new_group = create(:group, description: 'Test Description')
     expect(Group.count).to eq(1)
   end
 
-  it "does not create a group" do
+  it 'does not create a group' do
     new_group = build(:bad_group)
     expect(new_group).to have(1).error_on(:description)
   end
 
-  describe "#led_by?" do
-    context "when user is not a leader of the group" do
-      it "returns false" do
+  describe '#led_by?' do
+    context 'when user is not a leader of the group' do
+      it 'returns false' do
         user = create :user1
-        group = create :group_with_member, userid: user.id, leader: false
+        group = create :group_with_member, user_id: user.id, leader: false
 
         result = group.led_by?(user)
 
@@ -33,10 +34,10 @@ describe Group do
       end
     end
 
-    context "when user is a leader of the group" do
-      it "returns true" do
+    context 'when user is a leader of the group' do
+      it 'returns true' do
         user = create :user1
-        group = create :group_with_member, userid: user.id, leader: true
+        group = create :group_with_member, user_id: user.id, leader: true
 
         result = group.led_by?(user)
 
@@ -45,13 +46,38 @@ describe Group do
     end
   end
 
-  describe "#leaders" do
-    context "when group has leaders" do
-      it "returns the leaders" do
+  describe '#member?' do
+    context 'when user is not a member of the group' do
+      it 'returns false' do
+        member_user = create :user
+        non_member_user = create :user1
+        group = create :group_with_member, user_id: member_user.id
+
+        result = group.member?(non_member_user)
+
+        expect(result).to be false
+      end
+    end
+
+    context 'when user is a member of the group' do
+      it 'returns true' do
+        user = create :user1
+        group = create :group_with_member, user_id: user.id
+
+        result = group.member?(user)
+
+        expect(result).to be true
+      end
+    end
+  end
+
+  describe '#leaders' do
+    context 'when group has leaders' do
+      it 'returns the leaders' do
         leader = create :user1
         non_leader = create :user2
-        group = create :group_with_member, userid: leader.id, leader: true
-        create :group_member, userid: non_leader.id, groupid: group.id,
+        group = create :group_with_member, user_id: leader.id, leader: true
+        create :group_member, user_id: non_leader.id, group_id: group.id,
                               leader: false
 
         result = group.leaders
@@ -60,10 +86,10 @@ describe Group do
       end
     end
 
-    context "when group has no leaders" do
-      it "returns an empty array" do
+    context 'when group has no leaders' do
+      it 'returns an empty array' do
         non_leader = create :user1
-        group = create :group_with_member, userid: non_leader.id, leader: false
+        group = create :group_with_member, user_id: non_leader.id, leader: false
 
         result = group.leaders
 
@@ -72,25 +98,25 @@ describe Group do
     end
   end
 
-  describe "#members" do
-    it "returns group members in alphabetical order" do
+  describe '#members' do
+    it 'returns group members in alphabetical order' do
       group = create :group
-      names = ['bryan', 'charlie', 'alex']
+      names = %w[bryan charlie alex]
       names.each do |name|
         user = create :user1, name: name
-        create :group_member, userid: user.id, groupid: group.id
+        create :group_member, user_id: user.id, group_id: group.id
       end
 
       result = group.members
 
-      expect(result.map(&:name)).to eq ['alex', 'bryan', 'charlie']
+      expect(result.map(&:name)).to eq %w[alex bryan charlie]
     end
   end
 
   describe '#destroy' do
     before(:each) do
       @group = create :group
-      @meeting = create :meeting, groupid: @group.id
+      @meeting = create :meeting, group_id: @group.id
     end
 
     it 'destroys associated meetings' do
@@ -123,7 +149,7 @@ describe Group do
   end
 
   def create_notification_for(group)
-    data = { groupid: group.id }.to_json
+    data = { group_id: group.id }.to_json
     create :notification, uniqueid: 'new_group_1', data: data
   end
 end

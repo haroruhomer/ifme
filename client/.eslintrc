@@ -1,12 +1,17 @@
 {
-  "plugins": ["jasmine", "flowtype"],
+  "plugins": ["flowtype", "jest", "react"],
   "extends": ["airbnb", "plugin:flowtype/recommended"],
   "parser": "babel-eslint",
   "env": {
-    "jasmine": true
+    "browser": true,
+    "jest/globals": true
   },
   "root": true,
   "rules": {
+    "import/prefer-default-export": ["off"],
+    "react/require-default-props": ["off"],
+    "jsx-a11y/label-has-for": ["off"],
+    "no-alert": ["off"],
     "react/sort-comp": [2, {
       "order": [
         "type-annotations",
@@ -16,6 +21,17 @@
         "/^render.+$/",
         "render"
       ]
-    }]
+    }],
+    "react/prefer-stateless-function": ["off"]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "./app",
+          ".."
+        ]
+      }
+    }
   }
 }

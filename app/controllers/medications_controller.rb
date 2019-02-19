@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MedicationsController < ApplicationController
-  include CollectionPageSetup
+  include CollectionPageSetupConcern
   include ReminderHelper
   include MedicationRefillHelper
   before_action :set_medication, only: %i[show edit update destroy]
@@ -15,12 +15,7 @@ class MedicationsController < ApplicationController
   # GET /medications/1
   # GET /medications/1.json
   def show
-    if @medication.userid == current_user.id
-      @page_edit = edit_medication_path(@medication)
-      @page_tooltip = t('medications.edit_medication')
-    else
-      redirect_to_path(medications_path)
-    end
+    redirect_to_path(medications_path) if @medication.user_id != current_user.id
   end
 
   # GET /medications/new
@@ -34,15 +29,16 @@ class MedicationsController < ApplicationController
   def edit
     TakeMedicationReminder.find_or_initialize_by(medication_id: @medication.id)
     RefillReminder.find_or_initialize_by(medication_id: @medication.id)
-    return if @medication.userid == current_user.id
+    return if @medication.user_id == current_user.id
 
-    redirect_to_path(medication_path(@medication))
+    redirect_to_medication(@medication)
   end
 
   # POST /medications
   # POST /medications.json
   def create
-    @medication = Medication.new(medication_params)
+    @medication =
+      Medication.new(medication_params.merge(user_id: current_user.id))
     return unless save_refill_to_google_calendar(@medication)
 
     if @medication.save
@@ -56,6 +52,7 @@ class MedicationsController < ApplicationController
   # PATCH/PUT /medications/1.json
   def update
     return unless save_refill_to_google_calendar(@medication)
+
     if @medication.update(medication_params)
       redirect_to_medication(@medication)
     else
@@ -70,10 +67,13 @@ class MedicationsController < ApplicationController
     redirect_to_path(medications_path)
   end
 
+  def redirect_to_medication(medication)
+    redirect_to_path(medication_path(medication))
+  end
+
   def return_to_sign_in
     sign_out current_user
     redirect_to_path(new_user_session_path)
-    false
   end
 
   private
@@ -88,28 +88,22 @@ class MedicationsController < ApplicationController
     end
   end
 
-  def redirect_to_medication(medication)
-    respond_to do |format|
-      format.html { redirect_to medication_path(medication) }
-      format.json { render :show, status: :ok, location: medication }
-    end
-  end
-
   # Use callbacks to share common setup or constraints between actions.
   def set_medication
     @medication = Medication.friendly.find(params[:id])
-  rescue
+  rescue ActiveRecord::RecordNotFound
     redirect_to_path(medications_path)
   end
 
   def medication_params
     params.require(:medication).permit(
       :name, :dosage, :refill,
-      :userid, :total, :strength,
+      :total, :strength,
       :dosage_unit, :total_unit, :strength_unit,
       :comments, :add_to_google_cal,
       take_medication_reminder_attributes: %i[active id],
-      refill_reminder_attributes: %i[active id]
+      refill_reminder_attributes: %i[active id],
+      weekly_dosage: []
     )
   end
 end

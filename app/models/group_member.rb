@@ -1,12 +1,11 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: group_members
 #
-#  id         :integer          not null, primary key
-#  groupid    :integer
-#  userid     :integer
+#  id         :bigint(8)        not null, primary key
+#  group_id   :integer
+#  user_id    :integer
 #  leader     :boolean
 #  created_at :datetime
 #  updated_at :datetime
@@ -15,15 +14,17 @@
 class GroupMember < ApplicationRecord
   after_destroy :destroy_meeting_memberships
 
-  validates :groupid, :userid, presence: true
+  validates :group_id, :user_id, presence: true
   validates :leader, inclusion: [true, false]
 
-  belongs_to :group, foreign_key: :groupid
-  belongs_to :user, foreign_key: :userid
+  belongs_to :group
+  belongs_to :user, foreign_key: :user_id
 
   has_many :meetings, through: :group
   has_many :meeting_memberships,
-           ->(group_member) { where(meeting_members: { userid: group_member.userid }) },
+           lambda { |group_member|
+             where(meeting_members: { user_id: group_member.user_id })
+           },
            through: :meetings, source: :meeting_members
 
   def destroy_meeting_memberships

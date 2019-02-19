@@ -1,19 +1,19 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: strategies
 #
-#  id          :integer          not null, primary key
-#  userid      :integer
-#  category    :text
-#  description :text
-#  viewers     :text
-#  comment     :boolean
-#  created_at  :datetime
-#  updated_at  :datetime
-#  name        :string
-#  slug        :string
+#  id           :bigint(8)        not null, primary key
+#  user_id      :integer
+#  category     :text
+#  description  :text
+#  viewers      :text
+#  comment      :boolean
+#  created_at   :datetime
+#  updated_at   :datetime
+#  name         :string
+#  slug         :string
+#  published_at :datetime
 #
 
 describe Strategy do
@@ -24,9 +24,9 @@ describe Strategy do
   describe 'validation' do
     specify { expect(strategy).to be_valid }
 
-    context 'without a userid' do
+    context 'without a user_id' do
       let(:strategy) do
-        build(:strategy, userid: nil, category: category, viewers: viewers)
+        build(:strategy, user_id: nil, category: category, viewers: viewers)
       end
 
       specify { expect(strategy).to be_invalid }
@@ -59,9 +59,9 @@ describe Strategy do
     end
   end
 
-  describe "#published?" do
+  describe '#published?' do
     context 'when it has a publication date' do
-      let(:strategy) { build(:strategy, :with_published_at)}
+      let(:strategy) { build(:strategy, :with_published_at) }
       let(:subject) { strategy.published? }
 
       it { is_expected.to be true }

@@ -12,7 +12,7 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+*.log
 /tmp
 
 *.DS_Store
@@ -24,8 +24,10 @@
 /config/env/development.env
 
 # Ignore all IDE, TextEditor configuration files
+.vs/
 .idea/
 .tags
+*.swp
 
 # Ignore coverage results
 /coverage
@@ -39,6 +41,7 @@ node_modules
 
 # Generated js bundles
 /public/webpack/*
+/public/webpack-test/*
 
 # Uploads
 /public/uploads

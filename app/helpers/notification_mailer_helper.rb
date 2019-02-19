@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable ModuleLength
 module NotificationMailerHelper
   def comment_on_moment_subject(data)
     I18n.t(
@@ -18,8 +19,8 @@ module NotificationMailerHelper
   end
 
   def comment_on_meeting_subject(data)
-    groupid = Meeting.find(data['typeid']).groupid
-    group = Group.where(id: groupid).first.name
+    group_id = Meeting.find(data['typeid']).group_id
+    group = Group.find_by(id: group_id).name
     I18n.t(
       val('comment_on_meeting_subject'),
       user: data['user'].to_s,
@@ -50,8 +51,10 @@ module NotificationMailerHelper
       val('new_group_body'),
       user: data['user'].to_s,
       group: data['group'].to_s,
-      description: Group.where(id: data['groupid']).first.description,
-      link: link_to(link_name, group_url(data['groupid']))
+      description: Group.find_by(id: data['group_id']).description,
+      link: link_to(link_name, group_url(data['group_id'])),
+      code_of_conduct_link: link_to(t('navigation.code_of_conduct'),
+                                    'https://www.contributor-covenant.org/')
     )
   end
 
@@ -73,7 +76,7 @@ module NotificationMailerHelper
 
   def add_remove_group_leader_body(data)
     link_name = I18n.t('click_here')
-    link = link_to(link_name, group_url(data['groupid']))
+    link = link_to(link_name, group_url(data['group_id']))
     I18n.t(val('add_remove_group_leader_body'),
            group: data['group'].to_s,
            link: link)
@@ -84,7 +87,7 @@ module NotificationMailerHelper
   end
 
   def remove_group_leader_subject(data)
-    group(data, 'add_group_leader_subject')
+    user_group(data, 'remove_group_leader_subject')
   end
 
   def update_meeting_subject(data)
@@ -114,8 +117,7 @@ module NotificationMailerHelper
   end
 
   def update_meeting_link(data)
-    link_name = I18n.t('click_here')
-    link = link_to(link_name, meeting_url(data['typeid']))
+    link = body_link(meeting_url(data['typeid']))
     I18n.t(val('update_meeting_link'), link: link)
   end
 
@@ -128,8 +130,7 @@ module NotificationMailerHelper
   end
 
   def join_meeting_body(data)
-    link_name = I18n.t('click_here')
-    link = link_to(link_name, meeting_url(data['typeid']))
+    link = body_link(meeting_url(data['typeid']))
     I18n.t(val('join_meeting_body'), meeting: data['typename'].to_s, link: link)
   end
 
@@ -155,4 +156,9 @@ module NotificationMailerHelper
   def user_group(data, key)
     I18n.t(val(key), user: data['user'].to_s, group: data['group'].to_s)
   end
+
+  def body_link(path)
+    link_to(I18n.t('click_here'), path)
+  end
 end
+# rubocop:enable ModuleLength

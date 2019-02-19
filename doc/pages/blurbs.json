@@ -258,5 +258,134 @@
     "link_name": "vildevevatne",
     "link": "https://github.com/vildevev",
     "social": "github"
-  }
+  },
+  {
+    "name": "Seun Adekunle",
+    "image": "/assets/contributors/seun_adekunle.jpeg",
+    "profile":
+      "Changing the world is my watch word and I'm glad to be part of this community where I get to contribute to helping people around the world to be healthy and feel safer to share their feelings and experiences.",
+    "location": "Lagos, Nigeria",
+    "link_name": "seunadex",
+    "link": "https://github.com/seunadex",
+    "social": "github"
+  },
+  {
+    "name": "George Karametas",
+    "image": "/assets/contributors/george_karametas.png",
+    "profile":
+      "I am Frontend Engineer from Athens, Greece and I love contributing to this project which helps people with mental health issues heal themselves by sharing their experiences with the community. For me, openness is critical to self improvement and healing. Moreover, this is an Open Source project as well, so with one stone, two birds!",
+    "location": "Treviso, Italy",
+    "link_name": "geodoo",
+    "link": "https://github.com/GeoDoo",
+    "social": "github"
+  },
+  {
+    "name": "Adan Amarillas",
+    "image": "/assets/contributors/adan_amarillas.jpg",
+    "profile":
+      "I am a software engineer that has witnessed the importance of mental health first hand. Mental health can unlock a person's potential. It's great to be a part of any project that empowers people.",
+    "location": "San Francisco, USA",
+    "link_name": "aamarill",
+    "link": "http://github.com/aamarill",
+    "social": "github"
+  },
+  {
+    "name": "Atibhi Agrawal",
+    "image": "/assets/contributors/atibhi_agrawal.jpg",
+    "profile": "I have always been a crusader of mental health. Working with if-me.org over the summer as an Rails Girls Scholar 2018 was one of the most fulfilling experiences of my life. if me is an amazing platform to share experiences and build a mental health community. It is full of positivity, love, and goodwill.",
+    "location": "Bengaluru, India",
+    "link_name": "aSquare14",
+    "link": "https://github.com/aSquare14",
+    "social": "github"
+  },
+  {
+    "name": "Prateksha Udhayanan",
+    "image": "/assets/contributors/prateksha_udhayanan.jpg",
+    "profile": "Having good mental health is one of our greatest assets. Contributing to an open source project which aims at building a mental health community is truly amazing! if-me.org is a wonderful platform where people from different backgrounds can come together and share their feelings and experiences. ",
+    "location": "Bengaluru, India",
+    "link_name": "prateksha_u",
+    "link": "https://github.com/prateksha",
+    "social": "github"
+  },
+  {
+    "name": "Nishiki Liu",
+    "image": "/assets/contributors/nishiki_liu.jpg",
+    "profile": "I am a full stack developer with design and illustration experience. I believe it is our responsibility to build software for good. if me focuses on a prevalent issue that is too often overlooked, and through loved ones, it gives people tools to heal.",
+    "location": "United States",
+    "link_name": "nshki.com",
+    "link": "https://nshki.com",
+    "social": "globe"
+  },
+  {
+    "name": "Jennifer Winer",
+    "image": "/assets/contributors/jennifer_winer.jpg",
+    "profile": "Creative problem solver and coder with a passion for people and enhancing relationships through technology. Women Who Code meetup organizer, mental health advocate, artist & amateur hiker.",
+    "location": "Colorado, USA",
+    "link_name": "jenniferwiner.com",
+    "link": "https://www.jenniferwiner.com",
+    "social": "globe"
+  },
+  {
+    "name": "Emma Smith",
+    "image": "/assets/contributors/emma_smith.png",
+    "profile": "I imagine a world where difference is celebrated, vulnerability is known as strength, and all are included in the circle of the human family.",
+    "location": "Brooklyn",
+    "link_name": "emmasmith.me",
+    "link": "https://www.emmasmith.me/",
+    "social": "globe"
+  },
+  {
+    "name": "John Maguire",
+    "image": "/assets/contributors/john_maguire.png",
+    "profile": "I'm a fullstack developer with a penchant for TDD based out of NYC. When I'm not writing code I'm either working on pursuing a graduate degree in computer science, cooking, or training strongman.",
+    "location": "Brooklyn, NYC",
+    "link_name": "johnmaguiredeveloper.com",
+    "link": "http://johnmaguiredeveloper.com",
+    "social": "globe"
+  },
+  {
+    "name": "Jasper Martin",
+    "image": "/assets/contributors/jasper_martin.png",
+    "profile": "I first encountered if-me.org when I was tasked to find an open source project to contribute on. It really is a great pleasure to contribute to this project because whenever I submit a pull request, I feel like I'm also helping people who have mental illness/difficulties in their life. I also want to thank the if-me.org community for helping me not just become a better developer, but also a better person.",
+    "location": "Manila, Philippines",
+    "link_name": "jaspervanbrian",
+    "link": "http://twitter.com/jaspervanbrian",
+    "social": "twitter"
+  },
+  {
+    "name": "Jason Alsip",
+    "image": "/assets/contributors/jason_alsip.jpg",
+    "profile": "I've mostly been working as a backend developer on C# and Node.js applications these days, but I've been looking for ways I can diversify my skills and maybe get into more full-stack development.  The issues of mental health matter to me on a personal level, so I feel that when I found if-me.org I found a project that in giving back to I am helping not just myself but others as well.",
+    "location": "Indianapolis, IN",
+    "link_name": "matcha440",
+    "link": "https://github.com/matcha440",
+    "social": "github"
+  },
+  {
+    "name": "Carl Summers",
+    "image": "/assets/contributors/carl_summers.jpg",
+    "profile": "I used to be an English teacher and musician but turned to programming. I found if-me.org after being told by a friend that open source projects could help me to code, and it was aligned with what I was looking for. I believe in its message as I spent a large portion of my life with mental health struggles. Contributing is my call to give back to those who are going and went through the same things that I did.",
+    "location": "Montreal, QC",
+    "link_name": "csumm",
+    "link": "https://github.com/csumm",
+    "social": "github"
+  },
+  {
+    "name": "Alex Manzo",
+    "image": "/assets/contributors/alex_manzo.jpg",
+    "profile": "I'm a sports video producer turned web developer. By day I work on a government contract, and in my spare time I like to work on an array of side projects. Contributing to if me is my first foray into open source, and I'm excited to contribute as much as I can! I have done a lot of work on my own mental health over the past year. I know just how difficult different mental health challenges can be. I was so excited to find if me since it aligns so much with what I have been working on personally.",
+    "location": "Durham, NC",
+    "link_name": "alexmanzo",
+    "link": "https://github.com/alexmanzo",
+    "social": "github"
+ },
+ {
+   "name": "Lee Mulvey",
+   "image": "/assets/contributors/lee_mulvey.jpg",
+   "profile": "I spent 10+ years on a career track to being a police officer. While I have massive respect for the job that they do, I realized that I did not share the same values as most in that field. Five years ago, I decided to pursue my longtime hobby of web development as a proper career and now here I am. Mental health has been an issue close to my heart. I've had family and friends struggle with mental health–some who are no longer with us today. While we've come a long way in recent years battling the stigma (and sadly, even having to prove the existence of mental illness), we still have a long ways to go. The if-me.org platform excites me because it combines a great premise with things that I'm passionate about and I feel that I can contribute to. Proud contributor since Hacktoberfest 2018.",
+   "location": "Calgary, AB",
+   "link_name": "LMulvey",
+   "link": "https://github.com/lmulvey",
+   "social": "github"
+ }
 ]

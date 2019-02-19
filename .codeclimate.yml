@@ -10,8 +10,9 @@ engines:
     enabled: true
     config:
       languages:
-      - ruby
-      - javascript
+        ruby: {}
+        javascript:
+          mass_threshold: 80
     exclude_paths:
     - "client/**/__tests__/"
   eslint:
@@ -19,11 +20,9 @@ engines:
     exclude_paths:
     - public/javascripts/
     - vendor/assets/javascripts
-    - client/karma.conf.js
-    - "client/**/__tests__/"
-    - "client/**/stories/"
+    - client/flow/
   fixme:
-    enabled: true
+    enabled: false
   rubocop:
     enabled: true
     channel: rubocop-0-48

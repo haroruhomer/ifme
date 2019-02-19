@@ -2,9 +2,9 @@
 
 RSpec.describe CategoriesController, type: :controller do
   let(:user) { create(:user1) }
-  let(:category) { create(:category, userid: user.id) }
-  let(:other_category) { create(:category, userid: user.id + 1) }
-  let(:valid_category_params) { attributes_for(:category).merge(userid: user.id) }
+  let(:category) { create(:category, user_id: user.id) }
+  let(:other_category) { create(:category, user_id: user.id + 1) }
+  let(:valid_category_params) { attributes_for(:category).merge(user_id: user.id) }
   let(:invalid_category_params) { { name: nil, description: nil } }
 
   describe 'GET #index' do
@@ -13,7 +13,7 @@ RSpec.describe CategoriesController, type: :controller do
       before { get :index }
       it 'sets the categories and page tooltip ivar' do
         expect(assigns(:categories)).to eq [category]
-        expect(assigns(:page_tooltip)).to eq I18n.t('categories.new')
+        expect(assigns(:page_new)).to eq I18n.t('categories.new')
       end
       it 'renders the page' do
         expect(response).to render_template(:index)
@@ -30,10 +30,6 @@ RSpec.describe CategoriesController, type: :controller do
       include_context :logged_in_user
       context 'when the user created the category' do
         before { get :show, params: { id: category.id } }
-        it 'passes the edit link and tooltip text to the template' do
-          expect(assigns(:page_edit)).to eq edit_category_path(category)
-          expect(assigns(:page_tooltip)).to eq I18n.t('categories.edit_category')
-        end
         it 'renders the page' do
           expect(response).to render_template(:show)
         end
@@ -109,6 +105,19 @@ RSpec.describe CategoriesController, type: :controller do
           expect(assigns(:category).errors).not_to be_empty
         end
       end
+
+      context 'when the user_id is hacked' do
+        it 'creates a new category, ignoring the user_id parameter' do
+          # passing a user_id isn't an error, but it shouldn't
+          # affect the owner of the created item
+          another_user = create(:user2)
+          hacked_category_params =
+            valid_category_params.merge(user_id: another_user.id)
+          expect { post :create, params: { category: hacked_category_params } }
+            .to change(Category, :count).by(1)
+          expect(Category.last.user_id).to eq(user.id)
+        end
+      end
     end
     context 'when the user is not logged in' do
       before { post :create }
@@ -165,7 +174,8 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:moment) { create(:moment, userid: user.id, category: [category.id]) }
+    let!(:moment) { create(:moment, user_id: user.id, category: [category.id]) }
+    let!(:strategy) { create(:strategy, comment: false, name: 'a', description: 'b', user_id: user.id, category: [category.id]) }
 
     context 'when the user is logged in' do
       include_context :logged_in_user
@@ -176,6 +186,10 @@ RSpec.describe CategoriesController, type: :controller do
       it 'removes categories from existing moments' do
         delete :destroy, params: { id: category.id }
         expect(moment.reload.category).not_to include(category.id)
+      end
+      it 'removes categories from existing strategies' do
+        delete :destroy, params: { id: category.id }
+        expect(strategy.reload.category).not_to include(category.id)
       end
       it 'redirects to the category index page' do
         delete :destroy, params: { id: category.id }
@@ -198,19 +212,18 @@ RSpec.describe CategoriesController, type: :controller do
         end
         it 'responds with a checkbox in json format' do
           post :quick_create, params: { category: valid_category_params }
-          response_keys = JSON.parse(response.body).keys
-          expect(response_keys).to contain_exactly('checkbox',
-                                                   'label',
-                                                   'wrapper_id',
-                                                   'autocomplete_id',
-                                                   'name',
-                                                   'id')
+          expect(response.body).to eq({
+            success: true,
+            id: Category.last.id,
+            name: Category.last.name,
+            slug: Category.last.slug
+          }.to_json)
         end
       end
       context 'when invalid params are supplied' do
         it 'responds with an error in json format' do
           post :quick_create, params: { category: invalid_category_params }
-          expect(response.body).to eq({ error: 'error' }.to_json)
+          expect(response.body).to eq({ success: false }.to_json)
         end
       end
     end

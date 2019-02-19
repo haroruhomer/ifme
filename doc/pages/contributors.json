@@ -196,10 +196,6 @@
     "link": "http://erinresso.com"
   },
   {
-    "name": "Lisette Ruiz",
-    "link": "https://github.com/leesyruiz"
-  },
-  {
     "name": "Timothy Ng",
     "link": "https://github.com/timorthi"
   },
@@ -254,5 +250,29 @@
   {
     "name": "Peder Johnsen",
     "link": "https://www.pederjohnsen.com/"
+  },
+  {
+    "name": "Annette Alt",
+    "link": "https://homestylecookingwithsylvya.wordpress.com/"
+  },
+  {
+    "name": "Andrea Rosales",
+    "link": "https://github.com/andrearosr"
+  },
+  {
+    "name": "Daniel Sauve",
+    "link": "https://www.linkedin.com/in/daniel-sauve/"
+  },
+  {
+    "name": "Luke Inglis",
+    "link": "https://github.com/ludamillion"
+  },
+  {
+    "name": "Michael Jalkio",
+    "link": "https://github.com/mjalkio"
+  },
+  {
+    "name":"Xinyi Guo",
+    "link":"https://github.com/xinyig97"
   }
 ]

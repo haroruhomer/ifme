@@ -1,2 +1,4 @@
+flow/
 flow-typed/
-karma.conf.js
+default.js
+translations.js
