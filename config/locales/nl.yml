@@ -13,6 +13,7 @@ nl:
   no_text: 'nee'
   expand_menu: 'vouw menu uit'
   close: sluiten
+  load_more: 'Meer laden'
   languages:
     en: English
     es: Español
@@ -25,6 +26,7 @@ nl:
     nb: Norsk
     de: Deutsch
     fr: Français
+    hi: 'हिंदी'
   navigation:
     about: Over
     blog: Blog
@@ -199,6 +201,7 @@ nl:
     refill: 'Bijvullen:'
     quantity: 'Totale Hoeveelheid:'
     strength: 'Sterkte:'
+    event_summary: 'Vullen voor %{name}.'
     form:
       strength: Sterkte
       strength_placeholder: 'b.v. 100'
@@ -263,6 +266,15 @@ nl:
       error: 'Je kunt deze samenkomst niet verlaten, je bent de enige leider.'
       success: 'Je hebt %{meeting} verlaten.'
     new: 'Nieuwe Samenkomst'
+    google_cal:
+      create:
+        add: 'Voeg toe aan Google Agenda'
+        success: 'Bijeenkomst succesvol toegevoegd aan Google Agenda.'
+        error: 'Er is iets misgegaan tijdens het toevoegen van de vergadering aan Google Agenda.'
+      destroy:
+        remove: 'Verwijderen uit Google Agenda'
+        success: 'Vergadering verwijderd uit Google Agenda met succes.'
+        error: 'Er is iets misgegaan tijdens het verwijderen van de vergadering uit Google Agenda.'
   moments:
     singular: Moment
     plural: Momenten
@@ -273,6 +285,7 @@ nl:
       singular: 'Geheim Delen'
       expires_at: 'Verloopt op'
       cancel_secret_share: 'Geheim Delen annuleren'
+      link_copied: 'Geheime share-link gekopieerd naar klembord'
     form:
       why: 'Wat is er gebeurd en wat is je gevoel?'
       fix: 'Welke gedachten zou je willen hebben?'
@@ -462,7 +475,7 @@ nl:
         therapy: therapie
         counseling: begeleiding
         youth: jeugd
-        lgbtqia: LGBTQIA
+        lgbt: LGBT
         harassment: 'lastig vallen'
         self_care: zelfzorg
         women: vrouwen
@@ -534,6 +547,13 @@ nl:
         stress: spanning
         fidget: wriemelen
         colouring: kleur
+        deaf: doof
+        asl: ASL
+        latinx: latinx
+        hispanic: hispanic
+        senior_citizens: bejaarden
+        black_people: 'zwarte mensen'
+        sexual_health: 'seksuele gezondheid'
   profile:
     index:
       title: Profiel

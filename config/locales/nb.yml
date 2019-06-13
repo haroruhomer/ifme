@@ -13,6 +13,7 @@ nb:
   no_text: nei
   expand_menu: 'utvide menyen'
   close: lukk
+  load_more: 'Last mer'
   languages:
     en: English
     es: Español
@@ -25,6 +26,7 @@ nb:
     nb: Norsk
     de: Deutsch
     fr: Français
+    hi: 'हिंदी'
   navigation:
     about: Om
     blog: Blogg
@@ -199,6 +201,7 @@ nb:
     refill: 'Påfyllelse:'
     quantity: 'Total kvantitet:'
     strength: 'Styrke:'
+    event_summary: 'Påfyll på %{name}.'
     form:
       strength: Styrke
       strength_placeholder: 'f.eks. 100'
@@ -263,6 +266,15 @@ nb:
       error: 'Du kan ikke forlate møtet, du er den eneste lederen.'
       success: 'Du har forlatt %{meeting}'
     new: 'Nytt møte'
+    google_cal:
+      create:
+        add: 'Legg til i Google Kalender'
+        success: 'Møte lagt til i Google Kalender vellykket.'
+        error: 'Noe gikk galt mens du la til møtet i Google Kalender.'
+      destroy:
+        remove: 'Fjern fra Google Kalender'
+        success: 'Møtet fjernet fra Google Kalender vellykket.'
+        error: 'Noe gikk galt under fjerning av møtet fra Google Kalender.'
   moments:
     singular: Øyeblikk
     plural: Øyeblikk
@@ -273,6 +285,7 @@ nb:
       singular: 'Hemmelig deling'
       expires_at: Utløper
       cancel_secret_share: 'Avbryt Hemmelig deling'
+      link_copied: 'Hemmelig sharelink kopiert til utklippstavlen'
     form:
       why: 'Hva skjedde og hvordan føler du deg?'
       fix: 'Hva slags tanker vil du ha?'
@@ -462,7 +475,7 @@ nb:
         therapy: terapi
         counseling: rådgivning
         youth: ungdom
-        lgbtqia: LGBTQIA
+        lgbt: LGBT
         harassment: trakkassering
         self_care: selvpleie
         women: kvinner
@@ -534,6 +547,13 @@ nb:
         stress: understreke
         fidget: fidget
         colouring: fargelegging
+        deaf: døv
+        asl: ASL
+        latinx: latinx
+        hispanic: hispanic
+        senior_citizens: pensjonister
+        black_people: 'svarte mennesker'
+        sexual_health: 'seksuell helse'
   profile:
     index:
       title: Profil

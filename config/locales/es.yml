@@ -13,6 +13,7 @@ es:
   no_text: 'no'
   expand_menu: 'ampliar menú'
   close: cerca
+  load_more: 'Carga más'
   languages:
     en: English
     es: Español
@@ -25,6 +26,7 @@ es:
     nb: Norsk
     de: Deutsch
     fr: Français
+    hi: 'हिंदी'
   navigation:
     about: 'Acerca de '
     blog: Blog
@@ -199,6 +201,7 @@ es:
     refill: 'Resurtir:'
     quantity: 'Cantidad total:'
     strength: 'Concentración:'
+    event_summary: 'Rellenar para %{name}.'
     form:
       strength: Concentración
       strength_placeholder: 'e.g. 100'
@@ -263,6 +266,15 @@ es:
       error: 'No puedes abandonar la reunión, eres el único líder.'
       success: 'Has abandonado %{meeting}.'
     new: 'Nueva reunión'
+    google_cal:
+      create:
+        add: 'Añadir a google calendar'
+        success: 'Reunión agregada a Google Calendar con éxito.'
+        error: 'Algo salió mal al agregar la reunión a Google Calendar.'
+      destroy:
+        remove: 'Eliminar de Google Calendar'
+        success: 'Reunión eliminada de Google Calendar con éxito.'
+        error: 'Algo salió mal al eliminar la reunión de Google Calendar.'
   moments:
     singular: Momento
     plural: Momentos
@@ -273,6 +285,7 @@ es:
       singular: 'Compartir en Secreto'
       expires_at: 'Caduca en'
       cancel_secret_share: 'Cancelar Compartir en Secreto'
+      link_copied: 'Secreto Compartir enlace copiado al portapapeles'
     form:
       why: '¿Qué ocurrió y cómo te sentiste'
       fix: '¿Qué pensamientos te gustaría tener?'
@@ -462,7 +475,7 @@ es:
         therapy: terapia
         counseling: asesoría
         youth: juventud
-        lgbtqia: LGBTQIA
+        lgbt: LGBT
         harassment: acoso
         self_care: autocuidado
         women: mujeres
@@ -534,6 +547,13 @@ es:
         stress: estrés
         fidget: agitarse
         colouring: colorante
+        deaf: sordo
+        asl: ASL
+        latinx: latinx
+        hispanic: hispano
+        senior_citizens: 'Personas mayores'
+        black_people: afrodescendente
+        sexual_health: 'salud sexual'
   profile:
     index:
       title: Perfil

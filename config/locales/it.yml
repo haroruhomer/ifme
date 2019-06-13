@@ -13,6 +13,7 @@ it:
   no_text: 'no'
   expand_menu: 'espandere il menu'
   close: vicino
+  load_more: 'Carica altro'
   languages:
     en: English
     es: Español
@@ -25,6 +26,7 @@ it:
     nb: Norsk
     de: Deutsch
     fr: Français
+    hi: 'हिंदी'
   navigation:
     about: 'Riguardo a noi'
     blog: Blog
@@ -199,6 +201,7 @@ it:
     refill: 'Riempimento:'
     quantity: 'Quantità totale:'
     strength: 'Peso:'
+    event_summary: 'Ricarica per %{name}.'
     form:
       strength: peso
       strength_placeholder: 'es. 100'
@@ -263,6 +266,15 @@ it:
       error: 'Non puoi lasciare il raduno, sei l’unico leader.'
       success: 'Hai lasciato %{meeting}'
     new: 'Nuovo Raduno'
+    google_cal:
+      create:
+        add: 'Aggiungi a Google Calendar'
+        success: 'Riunione aggiunta correttamente a Google Calendar.'
+        error: 'Qualcosa è andato storto durante l''aggiunta della riunione a Google Calendar.'
+      destroy:
+        remove: 'Rimuovi da Google Calendar'
+        success: 'Riunione rimossa da Google Calendar con successo.'
+        error: 'Qualcosa è andato storto durante la rimozione della riunione da Google Calendar.'
   moments:
     singular: Momento
     plural: Momenti
@@ -273,6 +285,7 @@ it:
       singular: 'Condivisione Segreta'
       expires_at: Scadenza
       cancel_secret_share: 'Annulla Condivisione Segreta'
+      link_copied: 'Link Condividi segreta copiato negli appunti'
     form:
       why: 'Cos’è successo e come ti senti?'
       fix: 'Che pensieri ti piacerebbe avere?'
@@ -462,7 +475,7 @@ it:
         therapy: terapia
         counseling: consulenza
         youth: giovani
-        lgbtqia: LGBTQIA
+        lgbt: LGBT
         harassment: molestie
         self_care: 'cura di sé'
         women: donne
@@ -534,6 +547,13 @@ it:
         stress: stress
         fidget: agitarsi
         colouring: colorazione
+        deaf: sordi
+        asl: ASL
+        latinx: latinx
+        hispanic: ispanico
+        senior_citizens: Anziani
+        black_people: 'persone di colore'
+        sexual_health: 'salute sessuale'
   profile:
     index:
       title: Profilo

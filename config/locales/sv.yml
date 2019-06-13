@@ -13,6 +13,7 @@ sv:
   no_text: nej
   expand_menu: 'expandera menyn'
   close: stänga
+  load_more: 'Ladda mer'
   languages:
     en: English
     es: Español
@@ -25,6 +26,7 @@ sv:
     nb: Norsk
     de: Deutsch
     fr: Français
+    hi: 'हिंदी'
   navigation:
     about: Om
     blog: Blogg
@@ -199,6 +201,7 @@ sv:
     refill: 'Påfyllning:'
     quantity: 'Total Kvantitet:'
     strength: 'Styrka:'
+    event_summary: 'Fyll på för %{name}.'
     form:
       strength: Styrka
       strength_placeholder: 't.ex. 100'
@@ -263,6 +266,15 @@ sv:
       error: 'Du kan inte lämna mötet, du är den enda ledaren.'
       success: 'Du har lämnat %{meeting}'
     new: 'Nytt Möte'
+    google_cal:
+      create:
+        add: 'Lägg till i Google Kalender'
+        success: 'Möte till Google Kalender framgångsrikt.'
+        error: 'Något gick fel när du tillade mötet i Google Kalender.'
+      destroy:
+        remove: 'Ta bort från Google Kalender'
+        success: 'Möte som tagits bort från Google Kalender framgångsrikt.'
+        error: 'Något gick fel när du tog bort mötet från Google Kalender.'
   moments:
     singular: Ögonblick
     plural: Ögonblicken
@@ -273,6 +285,7 @@ sv:
       singular: 'Hemlig Andel'
       expires_at: 'Förfaller vid'
       cancel_secret_share: 'Annullera Hemlig Andel'
+      link_copied: 'Secret Share länk kopieras till Urklipp'
     form:
       why: 'Vad hände och hur känner du dig?'
       fix: 'Vilka tankar skulle du vilja ha?'
@@ -462,7 +475,7 @@ sv:
         therapy: terapi
         counseling: rådgivning
         youth: ungdom
-        lgbtqia: LGBTQIA
+        lgbt: LGBT
         harassment: trakasserier
         self_care: egenvård
         women: kvinnor
@@ -534,6 +547,13 @@ sv:
         stress: påfrestning
         fidget: fidget
         colouring: färg
+        deaf: döv
+        asl: ASL
+        latinx: latinx
+        hispanic: latinamerikan
+        senior_citizens: pensionärer
+        black_people: 'Mörka personer'
+        sexual_health: 'sexuell hälsa'
   profile:
     index:
       title: Profil
