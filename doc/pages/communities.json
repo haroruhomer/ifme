@@ -1,8 +1,8 @@
 [
   {
-    "name": "Aloe",
-    "link": "https://aloe.club",
-    "tags": ["self_care", "anonymous"],
+    "name": "Aloe Bud",
+    "link": "https://aloebud.com",
+    "tags": ["self_care", "anonymous", "ios"],
     "languages": ["en"]
   },
   {
@@ -117,6 +117,12 @@
     "name": "Redefine Enough",
     "link": "https://www.redefineenough.com",
     "tags": ["podcast", "blog", "black_women", "women_of_colour", "support_groups"],
+    "languages": ["en"]
+  },
+  {
+    "name": "GenuineU",
+    "link": "https://www.genuineu.org",
+    "tags": ["blog", "videos", "anonymous"],
     "languages": ["en"]
   }
 ]

@@ -41,9 +41,10 @@ const actions = [
   action('strikethrough'),
   action('olist'),
   action('ulist'),
-  Object.assign({}, action('link'), {
+  {
+    ...action('link'),
     icon: ReactDOMServer.renderToString(<FontAwesomeIcon icon={faLink} />),
-  }),
+  },
 ];
 
 const classes = {
@@ -141,7 +142,7 @@ export class InputTextarea extends React.Component<Props, State> {
           this.editorRef = element;
         }}
       >
-        <div className="editor" />
+        <div className={`editor ${css.editor}`} />
         {this.displayHidden()}
       </div>
     );

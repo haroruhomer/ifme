@@ -4,12 +4,10 @@ import axios from 'axios';
 import renderHTML from 'react-render-html';
 import { Modal } from '../../components/Modal';
 import { Utils } from '../../utils';
+import { I18n } from '../../libs/i18n/index';
 
 export type Props = {
   element: any,
-  plural: string,
-  none: string,
-  clear: string,
 };
 
 export type State = {
@@ -26,7 +24,7 @@ export class Notifications extends React.Component<Props, State> {
     this.state = { notifications: '', alreadyMounted: false, open: false };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchNotifications();
   }
 
@@ -41,7 +39,7 @@ export class Notifications extends React.Component<Props, State> {
     this.setState({ signedInKey });
     const metaPusherKey = Array.from(
       window.document.getElementsByTagName('meta'),
-    ).filter(item => item.getAttribute('name') === 'pusher-key')[0];
+    ).filter((item) => item.getAttribute('name') === 'pusher-key')[0];
     const pusherKey = metaPusherKey.getAttribute('content');
     const pusher = new window.Pusher(pusherKey, { encrypted: true });
     const channel = pusher.subscribe(`private-${signedInKey}`);
@@ -62,7 +60,7 @@ export class Notifications extends React.Component<Props, State> {
 
   fetchNotifications = () => {
     const { alreadyMounted, signedInKey } = this.state;
-    axios
+    return axios
       .get('/notifications/signed_in')
       .then((response: any) => {
         if (response && response.data && response.data.signed_in !== -1) {
@@ -99,7 +97,6 @@ export class Notifications extends React.Component<Props, State> {
   };
 
   displayNotifications = () => {
-    const { clear } = this.props;
     const { notifications } = this.state;
     return (
       <div>
@@ -109,21 +106,25 @@ export class Notifications extends React.Component<Props, State> {
           className="buttonDarkS smallMarginTop"
           onClick={this.clearNotifications}
         >
-          {clear}
+          {I18n.t('notifications.clear')}
         </button>
       </div>
     );
   };
 
   render() {
-    const { element, plural, none } = this.props;
+    const { element } = this.props;
     const { notifications, open, modalKey } = this.state;
     return (
       <Modal
         element={element}
         elementId="notificationsElement"
-        title={plural}
-        body={notifications.length ? this.displayNotifications() : none}
+        title={I18n.t('notifications.plural')}
+        body={
+          notifications.length
+            ? this.displayNotifications()
+            : I18n.t('notifications.none')
+        }
         openListener={this.fetchNotifications}
         open={open}
         key={modalKey}

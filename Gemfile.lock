@@ -49,8 +49,6 @@ GEM
     annotate (2.7.5)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 13.0)
-    archive-zip (0.12.0)
-      io-like (~> 0.3.0)
     arel (9.0.0)
     ast (2.4.0)
     aws_cf_signer (0.1.3)
@@ -83,9 +81,6 @@ GEM
     childprocess (1.0.1)
       rake (< 13.0)
     choice (0.2.0)
-    chromedriver-helper (2.1.1)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     chronic (0.10.2)
     cloudinary (1.11.1)
       aws_cf_signer
@@ -94,13 +89,15 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
+    css_parser (1.6.0)
+      addressable
     database_cleaner (1.7.0)
     declarative (0.0.10)
     declarative-option (0.1.0)
-    devise (4.6.2)
+    devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 6.0)
+      railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
     devise_invitable (2.0.1)
@@ -160,6 +157,7 @@ GEM
     groupdate (4.1.2)
       activesupport (>= 4.2)
     hashie (3.6.0)
+    htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httpclient (2.8.3)
@@ -168,7 +166,6 @@ GEM
     inline_svg (1.5.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
-    io-like (0.3.0)
     jaro_winkler (1.5.2)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -217,7 +214,7 @@ GEM
     mustermann (1.0.3)
     netrc (0.11.0)
     nio4r (2.3.1)
-    nokogiri (1.10.3)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     oauth2 (1.4.1)
       faraday (>= 0.8, < 0.16.0)
@@ -244,6 +241,13 @@ GEM
     parser (2.6.3.0)
       ast (~> 2.4.0)
     pg (1.1.4)
+    premailer (1.11.1)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.10.2)
+      actionmailer (>= 3, < 6)
+      premailer (~> 1.7, >= 1.7.9)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -295,7 +299,7 @@ GEM
       activesupport (>= 4.2)
       choice (~> 0.2.0)
       ruby-graphviz (~> 1.2)
-    rails-html-sanitizer (1.0.4)
+    rails-html-sanitizer (1.2.0)
       loofah (~> 2.2, >= 2.2.2)
     rails-i18n (5.1.3)
       i18n (>= 0.7, < 2)
@@ -312,7 +316,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
-    rake (12.3.2)
+    rake (12.3.3)
     rdoc (6.0.4)
     react_on_rails (11.3.0)
       addressable
@@ -328,9 +332,9 @@ GEM
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
-    responders (2.4.1)
-      actionpack (>= 4.2.0, < 6.0)
-      railties (>= 4.2.0, < 6.0)
+    responders (3.0.0)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     resque (2.0.0)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
@@ -391,7 +395,7 @@ GEM
       rubocop (>= 0.60.0)
     ruby-graphviz (1.2.4)
     ruby-progressbar (1.10.1)
-    rubyzip (1.2.3)
+    rubyzip (1.3.0)
     rufus-scheduler (3.5.2)
       fugit (~> 1.1, >= 1.1.5)
     sass (3.4.25)
@@ -411,6 +415,8 @@ GEM
       rubyzip (~> 1.2, >= 1.2.2)
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
+    shoulda-matchers (4.1.2)
+      activesupport (>= 4.2.0)
     signet (0.11.0)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -454,6 +460,10 @@ GEM
       rack (>= 1.0.0)
     warden (1.2.8)
       rack (>= 2.0.6)
+    webdrivers (4.1.2)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (>= 3.0, < 4.0)
     webpacker (3.5.5)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -478,11 +488,10 @@ DEPENDENCIES
   capybara (~> 3.24.0)
   carrierwave (~> 1.3.1)
   certified (= 1.0.0)
-  chromedriver-helper
   chronic (= 0.10.2)
   cloudinary (~> 1.11.1)
   database_cleaner
-  devise (~> 4.6)
+  devise (~> 4.7.1)
   devise_invitable (~> 2.0.1)
   devise_uid
   dotenv-rails (~> 2.7.2)
@@ -501,6 +510,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 0.7.0)
   omniauth-rails_csrf_protection (~> 0.1.2)
   pg (= 1.1.4)
+  premailer-rails
   pry-byebug
   pry-rails
   puma
@@ -524,14 +534,17 @@ DEPENDENCIES
   rubocop (>= 0.49.0)
   rubocop-performance
   rubocop-rspec
+  rubyzip (~> 1.3.0)
   sass-rails (~> 5.0, >= 5.0.6)
   sdoc (= 1.0.0)
   selenium-webdriver (~> 3.142.3)
   sentry-raven
+  shoulda-matchers
   simplecov
   spring
   turbolinks (~> 5.2.0)
   uglifier (~> 4.1.20)
+  webdrivers
   webpacker
 
 RUBY VERSION
