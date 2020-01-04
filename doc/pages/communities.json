@@ -60,6 +60,12 @@
     "languages": ["en"]
   },
   {
+    "name": "Peerly Human",
+    "link": "https://peerlyhuman.blogspot.com/",
+    "tags": ["support_groups", "blog", "learning"],
+    "languages": ["en"]
+  },
+  {
     "name": "Project Toe",
     "link": "http://www.projecttoe.com/",
     "tags": ["support_groups", "android", "ios"],
@@ -73,7 +79,7 @@
   },
   {
     "name": "A Canvas of the Minds",
-    "link": "https://acanvasoftheminds.com/",
+    "link": "https://acanvasoftheminds.wordpress.com/",
     "tags": ["free", "blog"],
     "languages": ["en"]
   },
@@ -147,6 +153,12 @@
     "name": "Lyftly",
     "link": "https://lyftly.com/",
     "tags": ["anonymous", "support_groups", "goal_tracking", "mood_tracking", "coaching", "ios", "android", "free", "paid"],
+    "languages": ["en"]
+  },
+  {
+    "name": "Surviving Antidepressants",
+    "link": "https://www.survivingantidepressants.org/",
+    "tags": ["forum", "peer_support", "physical_dependence", "advice"],
     "languages": ["en"]
   }
 ]
