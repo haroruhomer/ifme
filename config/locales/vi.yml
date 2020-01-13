@@ -563,6 +563,10 @@ vi:
         teen: 'thiếu niên'
         coaching: 'huấn luyện'
         physical_dependence: 'lệ thuộc vật lý'
+        codependency: 'tài chính'
+        relationships: 'các mối quan hệ'
+        alcoholism: 'nghiện rượu'
+        cbt: CBT
   profile:
     index:
       title: 'Hồ sơ'

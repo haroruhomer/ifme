@@ -563,6 +563,10 @@ es:
         teen: adolescente
         coaching: entrenamiento
         physical_dependence: 'dependencia física'
+        codependency: codependencia
+        relationships: relaciones
+        alcoholism: alcoholism
+        cbt: CBT
   profile:
     index:
       title: Perfil
