@@ -27,6 +27,7 @@ es:
     de: Deutsch
     fr: Français
     hi: 'हिंदी'
+    zh: 中文
   navigation:
     main_menu: 'Menú del sitio principal'
     user_menu: 'Menú del Usuario'
@@ -390,8 +391,7 @@ es:
       main_message_two: 'Sobrellevar la salud mental es lo que nos hace humanos. Sin embargo, para  muchos de nosotros, es difícil ser sinceros al respecto.'
       message_text_two: '<p>No todas las personas con las que hablamos son consejeros o terapeutas. Las personas con las que interactuamos diariamente afectan nuestras emociones y comportamiento. Involucrarlos en el tratamiento de nuestra salud mental es la clave para recuperarnos.</p><p class="subtitle">"Nada está sólo en tu mente, está todo alrededor de ti. Podemos sanar juntos."</p><p>La salud mental es una experiencia única e individual. ¡No hay dos cerebros idénticos!</p>'
       main_message_three: '¿Quieres ayudar a financiarnos?'
-      message_text_three: 'Nuestra página es <u>completamente</u> open source. Es decir, se construye y mantiene por parte de voluntarios con diversas experiencias y habilidades profesionales.</p><p>En 2016, recibimos una subvención comunitaria por parte de %{linebreak_link}. En 2017, recibimos fondos de %{fund_club_link}.</p><p>Puedes apoyarnos con una donación en nuestro %{patreon_link}.</p>'
-      linebreak: Linebreak
+      message_text_three: 'Nuestra página es <u>completamente</u> open source. Es decir, se construye y mantiene por parte de voluntarios con diversas experiencias y habilidades profesionales.</p><p>En 2016, recibimos una subvención comunitaria por parte de Linebreak. En 2017, recibimos fondos de %{fund_club_link}.</p><p>Puedes apoyarnos con una donación en nuestro %{patreon_link}.</p>'
       fund_club: 'Fund Club'
     blog:
       description: '¡Si deseas escribir para nosotros, mándanos tu propuesta a %{email}! Puedes hacerlo también de forma anónima.'
@@ -465,11 +465,11 @@ es:
     resources:
       description: 'Esta es nuestra lista curada de recursos de salud mental, que incluye comunidades, herramientas educativas, líneas directas y servicios.'
       emergency: 'Si usted o alguien que conoce está experimentando una emergencia de salud mental, busque ayuda lo antes posible.'
-      communities: Comunidades
-      education: Educación
-      hotlines: 'Líneas de Ayuda'
-      services: Servicios
       tags:
+        communities: comunidades
+        education: educación
+        hotlines: 'líneas de ayuda'
+        services: servicios
         people_of_colour: 'personas de color'
         women_of_colour: 'mujeres de color'
         black_women: 'mujeres de color'
@@ -567,6 +567,11 @@ es:
         relationships: relaciones
         alcoholism: alcoholism
         cbt: CBT
+        chrome: chrome
+        firefox: firefox
+        social_media_break: 'descanso de las redes sociales'
+        quiz: examen
+        attachment: 'adjunto archivo'
   profile:
     index:
       title: Perfil

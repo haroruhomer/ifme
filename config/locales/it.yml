@@ -27,6 +27,7 @@ it:
     de: Deutsch
     fr: Français
     hi: 'हिंदी'
+    zh: 中文
   navigation:
     main_menu: 'Menu del sito principale'
     user_menu: 'Menu utente'
@@ -390,8 +391,7 @@ it:
       main_message_two: 'Avere a che fare con la salute mentale è ciò che ci rende umani. Ma per molti di noi, essere aperti al riguardo è spesso molto difficile.'
       message_text_two: '<p>Non tutti sono terapeuti. Le persone con cui abbiamo a che fare ogni giorno danno forma alle nostre emozioni e comportamenti. Renderli partecipi nel trattamento della salute mentale è la chiave per la cura.</p><p class="subtitle">"Non è solo nella tua testa, ma tutto attorno a te. Possiamo raggiungere una soluzione, insieme."</p><p>La salute mentale è un''esperienza individuale ed unica. Al mondo non esistono due menti uguali! Affrontare il problema richiede l''aiuto di tutti, motivo per cui il progetto è open source.</p>'
       main_message_three: 'Vuoi finanziarci?'
-      message_text_three: 'La nostra app è un progetto <u>completamente</u> open source. È costruito e mantenuto da volontari dalle differenti storie e abilità.</p><p>Nel 2016, abbiamo ricevuto un contributo comunitario da %{linebreak_link}. Nel 2017, abbiamo ricevuto finanziamenti da %{fund_club_link}.</p>Puoi supportarci donando a %{patreon_link}.</p>'
-      linebreak: Linebreak
+      message_text_three: 'La nostra app è un progetto <u>completamente</u> open source. È costruito e mantenuto da volontari dalle differenti storie e abilità.</p><p>Nel 2016, abbiamo ricevuto un contributo comunitario da Linebreak. Nel 2017, abbiamo ricevuto finanziamenti da %{fund_club_link}.</p>Puoi supportarci donando a %{patreon_link}.</p>'
       fund_club: 'Fund Club'
     blog:
       description: 'Se vorresti scrivere per noi, contattaci su %{email}! Diamo il benvenuto anche a contribuzioni anonime.'
@@ -465,11 +465,11 @@ it:
     resources:
       description: 'Questa è la nostra lista curata di risorse per la salute mentale, che include comunità, strumenti educativi, hotline e servizi.'
       emergency: 'Se tu o qualcuno che conosci state vivendo un''emergenza per la salute mentale, contattate il più presto possibile.'
-      communities: Community
-      education: Educazione
-      hotlines: Numeri
-      services: Servizi
       tags:
+        communities: community
+        education: educazione
+        hotlines: numeri
+        services: servizi
         people_of_colour: 'persone di colore'
         women_of_colour: 'donne di colore'
         black_women: 'donne di colore'
@@ -567,6 +567,11 @@ it:
         relationships: relazioni
         alcoholism: alcolismo
         cbt: CBT
+        chrome: chrome
+        firefox: firefox
+        social_media_break: 'pausa dai social media'
+        quiz: quiz
+        attachment: attaccamento
   profile:
     index:
       title: Profilo
