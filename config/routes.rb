@@ -38,7 +38,10 @@ Rails.application.routes.draw do
   end
 
   resources :moments do
-    post 'picture', to: 'moments#picture', as: 'picture'
+    collection do
+      post 'picture', to: 'moments#picture', as: 'picture'
+      get 'tagged', defaults: { format: 'json' }
+    end
   end
 
   resources :secret_shares, only: %i[create show destroy]
@@ -47,6 +50,7 @@ Rails.application.routes.draw do
     collection do
       post 'premade'
       post 'quick_create'
+      get 'tagged', defaults: { format: 'json' }
     end
   end
 
