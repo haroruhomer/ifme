@@ -14,6 +14,7 @@ nb:
   expand_menu: 'utvide menyen'
   close: lukk
   load_more: 'Last mer'
+  of: 'av'
   languages:
     en: English
     es: Español
@@ -27,6 +28,7 @@ nb:
     de: Deutsch
     fr: Français
     hi: 'हिंदी'
+    zh: 中文
   navigation:
     main_menu: Hovedstedmeny
     user_menu: Brukermeny
@@ -390,8 +392,7 @@ nb:
       main_message_two: 'Å takle mental helse er det som gjør oss til mennesker. Men for mange av oss, er det vanskelig å være åpne om det.'
       message_text_two: '<p>Ikke alle har en psykolog eller terapeut. Menneskene vi samhandler med på en daglig basis former våre følelser og handlinger. Å få dem involvert i mental helse behandling er nøkkelen til forbedring.</p><p class="subtitle">"Det er ikke bare alt i hodet ditt, det er rundt deg. Vi kan helbredes sammen."</p><p>Mental helse er virkelig en individuell og unik opplevelse. Ingen to hjerner er like! Å takle problemet krever ideer fra alle, det er derfor dette prosjektet har åpen kildekode.</p>'
       main_message_three: 'Vil du støtte oss?'
-      message_text_three: 'Vår applikasjon er ett <u>fullstendig</u> åpent kildekode-prosjekt. Den er bygget og vedlikeholdt av frivillige fra mange ulike bakgrunner og ferdighetssett.</p><p>I 2016, mottok vi et samfunnsstipend fra %{linebreak_link}. I 2017, mottok vi støtte fra %{fund_club_link}.</p>Du kan støtte oss ved å donere til vår %{patreon_link}.</p>'
-      linebreak: Linebreak
+      message_text_three: 'Vår applikasjon er ett <u>fullstendig</u> åpent kildekode-prosjekt. Den er bygget og vedlikeholdt av frivillige fra mange ulike bakgrunner og ferdighetssett.</p><p>I 2016, mottok vi et samfunnsstipend fra Linebreak. I 2017, mottok vi støtte fra %{fund_club_link}.</p>Du kan støtte oss ved å donere til vår %{patreon_link}.</p>'
       fund_club: 'Fund Club'
     blog:
       description: 'Hvis du er interessert i å skrive for oss, kontakt oss på %{email}! Vi tar også imot anonyme innleveringer.'
@@ -465,11 +466,11 @@ nb:
     resources:
       description: 'Dette er vår kuraterte liste over mental helse ressurser, som inkluderer lokalsamfunn, pedagogiske verktøy, hotlines og tjenester.'
       emergency: 'Hvis du eller noen du kjenner opplever en krise i psykisk helse, må du kontakte hjelp så snart som mulig.'
-      communities: Samfunn
-      education: Utdanning
-      hotlines: Hjelpelinjer
-      services: Tjenester
       tags:
+        communities: samfunn
+        education: utdanning
+        hotlines: hjelpelinjer
+        services: tjenester
         people_of_colour: 'fargede folk'
         women_of_colour: 'fargede kvinner'
         black_women: 'svarte kvinner'
@@ -563,6 +564,15 @@ nb:
         teen: tenåring
         coaching: coaching
         physical_dependence: 'fysisk avhengighet'
+        codependency: codependency
+        relationships: forhold
+        alcoholism: alkoholisme
+        cbt: CBT
+        chrome: chrome
+        firefox: firefox
+        social_media_break: 'sosiale mediebrudd'
+        quiz: quiz
+        attachment: feste
   profile:
     index:
       title: Profil

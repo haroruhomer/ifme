@@ -4,6 +4,7 @@ class MoodsController < ApplicationController
   include CollectionPageSetupConcern
   include CategoriesHelper
   include Shared
+  include TagsHelper
   before_action :set_mood, only: %i[show edit update destroy]
 
   # GET /moods
@@ -24,6 +25,7 @@ class MoodsController < ApplicationController
   # GET /moods/1
   # GET /moods/1.json
   def show
+    setup_stories
     redirect_to_path(moods_path) if @mood.user_id != current_user.id
   end
 

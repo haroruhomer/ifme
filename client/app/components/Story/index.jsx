@@ -9,7 +9,9 @@ import type { Actions } from './StoryActions';
 import { StoryBy } from './StoryBy';
 import type { Props as StoryByProps } from './StoryBy';
 import { StoryCategories } from './StoryCategories';
+import type { Category } from './StoryCategories';
 import { StoryMoods } from './StoryMoods';
+import type { Mood } from './StoryMoods';
 import { StoryMedication } from './StoryMedication';
 import css from './Story.scss';
 
@@ -19,8 +21,8 @@ export type Props = {
   date?: string,
   draft?: string,
   actions?: Actions,
-  categories?: string[],
-  moods?: string[],
+  categories?: Category[],
+  moods?: Mood[],
   storyBy?: StoryByProps,
   storyType?: string,
   body?: any,
@@ -45,13 +47,6 @@ const header = (
   </div>
 );
 
-const tags = (categories: ?(string[]), moods: ?(string[])) => (
-  <div>
-    {categories && <StoryCategories categories={categories} />}
-    {moods && <StoryMoods moods={moods} />}
-  </div>
-);
-
 const info = (
   storyBy: ?StoryByProps,
   storyType: ?string,
@@ -63,21 +58,22 @@ const info = (
       <StoryBy author={storyBy.author} avatar={storyBy.avatar} />
       <div className={css.infoRight}>
         <div className={css.storyType}>{storyType}</div>
-        {actions ? <StoryActions actions={actions} hasStory /> : null}
+        {actions && <StoryActions actions={actions} hasStory />}
       </div>
     </div>
   );
 };
 
 const footer = (
-  categories: ?(string[]),
-  moods: ?(string[]),
+  categories: ?(Category[]),
+  moods: ?(Mood[]),
   storyBy: ?StoryByProps,
   storyType: ?string,
   actions: ?Actions,
 ) => (
   <div className={css.footer}>
-    {categories || moods ? tags(categories, moods) : null}
+    {categories && <StoryCategories categories={categories} />}
+    {moods && <StoryMoods moods={moods} />}
     {info(storyBy, storyType, actions)}
   </div>
 );

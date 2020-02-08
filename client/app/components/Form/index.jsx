@@ -4,7 +4,6 @@ import { Input } from '../Input';
 import { TYPES as INPUT_TYPES } from '../Input/utils';
 import type { Props as InputProps } from '../Input/utils';
 import { REQUIRES_DEFAULT } from '../Input/InputDefault';
-// eslint-disable-next-line import/no-cycle
 import { QuickCreate } from '../../widgets/QuickCreate';
 import type { Props as QuickCreateProps } from '../../widgets/QuickCreate';
 import { Utils } from '../../utils';
@@ -19,9 +18,6 @@ type Errors = { [string]: boolean } | {};
 export type Props = {
   action?: string,
   inputs: any[],
-  noFormTag?: boolean, // Can't have nested forms i.e. quick create
-  noFormTagSubmit?: Function,
-  noFormTagRef?: any,
 };
 
 export type State = {
@@ -72,61 +68,45 @@ export class Form extends React.Component<Props, State> {
       }
       return newInput;
     });
-    const { noFormTagSubmit } = this.props;
     if (hasErrors(newErrors) > 0) {
       e.preventDefault();
       this.setState({ inputs: newInputs, errors: newErrors });
-    } else if (noFormTagSubmit) {
-      noFormTagSubmit();
     }
   };
 
-  handleNoFormTagSubmit = (e: SyntheticEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    this.onSubmit(e);
-  };
-
-  displayInput = (input: MyInputProps) => {
-    const { noFormTag } = this.props;
-    return (
-      <div key={input.id}>
-        <Input
-          id={input.id}
-          key={input.myKey}
-          type={input.type}
-          name={input.name}
-          label={input.label}
-          placeholder={input.placeholder}
-          error={input.error}
-          value={input.value}
-          readOnly={input.readOnly}
-          copyOnClick={input.copyOnClick}
-          disabled={input.disabled}
-          required={input.required}
-          info={input.info}
-          minLength={input.minLength}
-          maxLength={input.maxLength}
-          dark={input.dark}
-          large={input.large}
-          checked={input.checked}
-          uncheckedValue={input.uncheckedValue}
-          options={input.options}
-          checkboxes={input.checkboxes}
-          accordion={input.accordion}
-          onClick={
-            input.type === 'submit' && noFormTag
-              ? this.handleNoFormTagSubmit
-              : undefined
-          }
-          onError={input.type !== 'submit' ? this.handleError : undefined}
-          myRef={(element) => {
-            this.myRefs[input.id] = element;
-          }}
-          formNoValidate={input.type === 'submit'}
-        />
-      </div>
-    );
-  };
+  displayInput = (input: MyInputProps) => (
+    <div key={input.id}>
+      <Input
+        id={input.id}
+        key={input.myKey}
+        type={input.type}
+        name={input.name}
+        label={input.label}
+        placeholder={input.placeholder}
+        error={input.error}
+        value={input.value}
+        readOnly={input.readOnly}
+        copyOnClick={input.copyOnClick}
+        disabled={input.disabled}
+        required={input.required}
+        info={input.info}
+        minLength={input.minLength}
+        maxLength={input.maxLength}
+        dark={input.dark}
+        large={input.large}
+        checked={input.checked}
+        uncheckedValue={input.uncheckedValue}
+        options={input.options}
+        checkboxes={input.checkboxes}
+        accordion={input.accordion}
+        onError={input.type !== 'submit' ? this.handleError : undefined}
+        myRef={(element) => {
+          this.myRefs[input.id] = element;
+        }}
+        formNoValidate={input.type === 'submit'}
+      />
+    </div>
+  );
 
   displayQuickCreate = (input: QuickCreateProps) => {
     const {
@@ -161,14 +141,7 @@ export class Form extends React.Component<Props, State> {
   };
 
   render() {
-    const { action, noFormTag, noFormTagRef } = this.props;
-    if (noFormTag) {
-      return (
-        <div className={css.form} ref={noFormTagRef}>
-          {this.displayInputs()}
-        </div>
-      );
-    }
+    const { action } = this.props;
     if (!action) return null;
     return (
       <form

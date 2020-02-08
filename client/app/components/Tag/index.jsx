@@ -8,22 +8,63 @@ type Props = {
   label?: string,
   secondary?: boolean,
   onClick?: Function,
+  href?: string,
 };
 
-export const Tag = (props: Props) => {
-  const {
-    dark, normal, label, secondary, onClick,
-  } = props;
-  const labelClassNames = `tag ${css.tag} ${dark ? css.dark : ''} ${
-    normal ? css.normal : ''
-  } ${secondary ? css.secondary : ''}`;
+const labelClassNames = ({
+  dark, normal, secondary, onClick,
+} = {}) => `tag ${css.tag} ${dark ? css.dark : ''} ${normal ? css.normal : ''} ${
+  secondary ? css.secondary : ''
+} ${onClick ? css.clickable : ''}`;
+
+export const Tag = ({
+  dark,
+  normal,
+  label,
+  secondary,
+  onClick,
+  href,
+}: Props) => {
+  if (href) {
+    return (
+      <a
+        className={labelClassNames({
+          dark,
+          normal,
+          secondary,
+          onClick,
+        })}
+        href={href}
+      >
+        {label}
+      </a>
+    );
+  }
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={() => onClick(label)}
+        onKeyDown={() => onClick(label)}
+        className={labelClassNames({
+          dark,
+          normal,
+          secondary,
+          onClick,
+        })}
+      >
+        {label}
+      </button>
+    );
+  }
   return (
     <div
-      onClick={onClick ? () => onClick(label) : null}
-      role="button"
-      tabIndex={0}
-      onKeyDown={onClick ? () => onClick(label) : null}
-      className={labelClassNames}
+      className={labelClassNames({
+        dark,
+        normal,
+        secondary,
+        onClick,
+      })}
     >
       {label}
     </div>

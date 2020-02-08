@@ -6,30 +6,27 @@ class StrategiesController < ApplicationController
   include StrategiesConcern
   include Shared
   include MomentsHelper
+  include TagsHelper
 
   before_action :set_strategy, only: %i[show edit update destroy]
 
   # GET /strategies
   # GET /strategies.json
-  # rubocop:disable MethodLength
   def index
     page_collection('@strategies', 'strategy')
     respond_to do |format|
       format.json do
-        render json:
-          {
-            data: moments_or_strategy_props(@strategies),
-            lastPage: @strategies.last_page?
-          }
+        render json: { data: moments_or_strategy_props(@strategies),
+                       lastPage: @strategies.last_page? }
       end
       format.html
     end
   end
-  # rubocop:enable MethodLength
 
   # GET /strategies/1
   # GET /strategies/1.json
   def show
+    setup_stories
     show_with_comments(@strategy)
   end
 
@@ -106,6 +103,15 @@ class StrategiesController < ApplicationController
     shared_destroy(@strategy)
   end
 
+  def tagged
+    setup_stories
+    respond_to do |format|
+      format.json do
+        render json: tagged_strategies_data_json if @strategies
+      end
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -117,21 +123,14 @@ class StrategiesController < ApplicationController
 
   def strategy_params
     params.require(:strategy).permit(
-      :name, :description, :published_at, :draft,
-      :comment, { category: [] }, { viewers: [] },
-      perform_strategy_reminder_attributes: %i[active id]
+      :name, :description, :published_at, :draft, :comment, { category: [] },
+      { viewers: [] }, perform_strategy_reminder_attributes: %i[active id]
     )
   end
 
   def quick_create_params(viewers)
-    {
-      user_id: current_user.id,
-      name: params[:strategy][:name],
-      description: params[:strategy][:description],
-      category: params[:strategy][:category],
-      published_at: Time.zone.now,
-      comment: true,
-      viewers: viewers
-    }
+    { user_id: current_user.id, comment: true, viewers: viewers,
+      description: params[:strategy][:description], published_at: Time.zone.now,
+      category: params[:strategy][:category], name: params[:strategy][:name] }
   end
 end
