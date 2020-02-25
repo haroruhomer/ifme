@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_013432) do
+ActiveRecord::Schema.define(version: 2020_02_25_010346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,9 +131,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_013432) do
   end
 
   create_table "moments", force: :cascade do |t|
-    t.text "category"
     t.string "name"
-    t.text "mood"
     t.text "why"
     t.text "fix"
     t.datetime "created_at"
@@ -141,13 +139,30 @@ ActiveRecord::Schema.define(version: 2019_08_21_013432) do
     t.integer "user_id"
     t.text "viewers"
     t.boolean "comment"
-    t.text "strategy"
     t.string "slug"
     t.uuid "secret_share_identifier"
     t.datetime "secret_share_expires_at"
     t.datetime "published_at"
     t.index ["secret_share_identifier"], name: "index_moments_on_secret_share_identifier", unique: true
     t.index ["slug"], name: "index_moments_on_slug", unique: true
+  end
+
+  create_table "moments_categories", force: :cascade do |t|
+    t.integer "moment_id"
+    t.integer "category_id"
+    t.index ["moment_id", "category_id"], name: "index_moments_categories_on_moment_id_and_category_id", unique: true
+  end
+
+  create_table "moments_moods", force: :cascade do |t|
+    t.integer "moment_id"
+    t.integer "mood_id"
+    t.index ["moment_id", "mood_id"], name: "index_moments_moods_on_moment_id_and_mood_id", unique: true
+  end
+
+  create_table "moments_strategies", force: :cascade do |t|
+    t.integer "moment_id"
+    t.integer "strategy_id"
+    t.index ["moment_id", "strategy_id"], name: "index_moments_strategies_on_moment_id_and_strategy_id", unique: true
   end
 
   create_table "moods", force: :cascade do |t|
@@ -199,7 +214,6 @@ ActiveRecord::Schema.define(version: 2019_08_21_013432) do
 
   create_table "strategies", force: :cascade do |t|
     t.integer "user_id"
-    t.text "category"
     t.text "description"
     t.text "viewers"
     t.boolean "comment"
@@ -209,6 +223,12 @@ ActiveRecord::Schema.define(version: 2019_08_21_013432) do
     t.string "slug"
     t.datetime "published_at"
     t.index ["slug"], name: "index_strategies_on_slug", unique: true
+  end
+
+  create_table "strategies_categories", force: :cascade do |t|
+    t.integer "strategy_id"
+    t.integer "category_id"
+    t.index ["strategy_id", "category_id"], name: "index_strategies_categories_on_strategy_id_and_category_id", unique: true
   end
 
   create_table "supports", force: :cascade do |t|
@@ -274,4 +294,12 @@ ActiveRecord::Schema.define(version: 2019_08_21_013432) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  add_foreign_key "moments_categories", "categories"
+  add_foreign_key "moments_categories", "moments"
+  add_foreign_key "moments_moods", "moments"
+  add_foreign_key "moments_moods", "moods"
+  add_foreign_key "moments_strategies", "moments"
+  add_foreign_key "moments_strategies", "strategies"
+  add_foreign_key "strategies_categories", "categories"
+  add_foreign_key "strategies_categories", "strategies"
 end

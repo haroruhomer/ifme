@@ -194,17 +194,18 @@ RSpec.describe CategoriesController, type: :controller do
       end
       it 'removes categories from existing moments' do
         delete :destroy, params: { id: category.id }
-        expect(moment.reload.category).not_to include(category.id)
+        expect(moment.reload.categories).not_to include(category)
       end
       it 'removes categories from existing strategies' do
         delete :destroy, params: { id: category.id }
-        expect(strategy.reload.category).not_to include(category.id)
+        expect(strategy.reload.categories).not_to include(category.id)
       end
       it 'redirects to the category index page' do
         delete :destroy, params: { id: category.id }
         expect(response).to redirect_to categories_path
       end
     end
+
     context 'when the user is not logged in' do
       before { delete :destroy, params: { id: category.id } }
       it_behaves_like :with_no_logged_in_user

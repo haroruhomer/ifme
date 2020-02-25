@@ -3,7 +3,7 @@
 #
 # Table name: strategies
 #
-#  id           :bigint(8)        not null, primary key
+#  id           :bigint           not null, primary key
 #  user_id      :integer
 #  category     :text
 #  description  :text
@@ -19,13 +19,12 @@
 describe Strategy do
   it { is_expected.to respond_to :friendly_id }
 
-  context 'when includign modules' do
+  context 'when including modules' do
     it { expect(described_class).to include Viewer }
     it { expect(described_class).to include CommonMethods }
   end
 
   context 'with serialize' do
-    it { is_expected.to serialize(:category) }
     it { is_expected.to serialize(:viewers) }
   end
 
@@ -61,10 +60,9 @@ describe Strategy do
     end
   end
 
-  describe '#array_data_to_i!' do
+  describe '#viewers_array_data' do
     specify do
-      strategy.array_data_to_i!
-      expect(strategy.category).to eq([1])
+      strategy.viewers_array_data
       expect(strategy.viewers).to eq([1])
     end
   end
@@ -98,6 +96,35 @@ describe Strategy do
       let(:strategy) { create(:strategy) }
       let(:subject) { strategy.published? }
       it { is_expected.to be false }
+    end
+  end
+
+  describe '#category_array_data' do
+    let!(:strategy) { create(:strategy) }
+    let!(:category) { create(:category, user: strategy.user) }
+
+    context 'saving categories via relation' do
+      let!(:category_two) { create(:category, user: strategy.user) }
+
+      it 'creates relations between strategy and category models' do
+        expect(strategy.categories.count).to eq(0)
+        strategy.category = [category.id.to_s, category_two.id.to_s]
+        strategy.save
+
+        expect(strategy.categories.count).to eq(2)
+        expect(strategy.categories).to include(category)
+        expect(strategy.categories).to include(category_two)
+      end
+
+      it 'removes old categories when updating' do
+        strategy.category = [category.id.to_s]
+        strategy.save
+        expect(strategy.categories).to eq [category]
+
+        strategy.category = [category_two.id.to_s]
+        strategy.save
+        expect(strategy.categories).to eq [category_two]
+      end
     end
   end
 end

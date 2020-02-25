@@ -3,21 +3,15 @@ module CommonMethods
   extend ActiveSupport::Concern
 
   def mood_names_and_slugs
-    return unless attribute(:mood)
+    return unless self.class.reflect_on_association(:moods)
 
-    names_and_slugs_hash(
-      Mood.where(id: mood).pluck(:name, :slug),
-      'moods'
-    )
+    names_and_slugs_hash(moods.pluck(:name, :slug), 'moods')
   end
 
   def category_names_and_slugs
-    return unless attribute(:category)
+    return unless self.class.reflect_on_association(:categories)
 
-    names_and_slugs_hash(
-      Category.where(id: category).pluck(:name, :slug),
-      'categories'
-    )
+    names_and_slugs_hash(categories.pluck(:name, :slug), 'categories')
   end
 
   private

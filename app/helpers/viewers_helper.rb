@@ -13,9 +13,9 @@ module ViewersHelper
 
   def get_viewers_for(data, data_type)
     result = []
-    if data && %w[category mood strategy].include?(data_type)
+    if data && %w[categories moods strategies].include?(data_type)
       result += get_viewers(data, data_type, Moment)
-      if data_type == 'category'
+      if data_type == 'categories'
         result += get_viewers(data, data_type, Strategy)
       end
     end
@@ -45,7 +45,7 @@ module ViewersHelper
   def get_viewers(data, data_type, obj)
     objs = obj.where(user_id: data.user_id).all.order('created_at DESC')
     objs.each do |ob|
-      item = ob.send(data_type)
+      item = ob.send(data_type).pluck(:id)
       return ob.viewers if item.include?(data.id)
     end
     []

@@ -12,9 +12,9 @@
         <%= link_to t('profile.index.edit_user'), edit_user_registration_path %>
       </div>
     <% end %>
-    <% if User.where(id: @profile.id).first.location.present? %>
+    <% if @profile.location.present? %>
       <div>
-        <i class="fa fa-location-arrow fa-inline smallMarginRight"></i><%= User.where(id: @profile.id).first.location %>
+        <i class="fa fa-location-arrow fa-inline smallMarginRight"></i><%= @profile.location %>
       </div>
     <% end %>
     <% if @profile.id != current_user.id %>
@@ -55,9 +55,9 @@
 
 <% if !@stories.nil? && @stories.any? %>
   <div class="marginTop">
-    <%= render partial: '/shared/stats', locals: { data_type: 'category', user: @profile } %>
-    <%= render partial: '/shared/stats', locals: { data_type: 'mood', user: @profile } %>
-    <%= render partial: '/shared/stats', locals: { data_type: 'strategy', user: @profile } %>
+    <%= render partial: '/shared/stats', locals: { data_type: 'categories', user: @profile } %>
+    <%= render partial: '/shared/stats', locals: { data_type: 'moods', user: @profile } %>
+    <%= render partial: '/shared/stats', locals: { data_type: 'strategies', user: @profile } %>
   </div>
   <div class="title">
     <%= t('pages.home.stories') %>

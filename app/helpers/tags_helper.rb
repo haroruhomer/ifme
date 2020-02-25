@@ -67,14 +67,38 @@ module TagsHelper
     total
   end
 
+  def tagged_data_result(tag, data)
+    if tag.is_a?(Mood)
+      get_moods_from_data(data, tag)
+    elsif tag.is_a?(Category)
+      get_categories_from_data(data, tag)
+    elsif tag.is_a?(Strategy)
+      get_strategies_from_data(data, tag)
+    end
+  end
+
   def get_tagged_data(tag, data)
     return unless tag && data
 
-    result = []
-    data.each do |d|
-      result << d if d[tag.class.name.downcase].include?(tag.id)
-    end
+    result = tagged_data_result(tag, data)
     { total: get_total(result),
       posts: Kaminari.paginate_array(result).page(params[:page]) }
+  end
+
+  def get_moods_from_data(data, mood)
+    data.select { |d| d.moods.include?(mood) }
+  end
+
+  def get_categories_from_data(data, category)
+    data.select { |d| d.categories.include?(category) }
+  end
+
+  def get_strategies_from_data(data, strategy)
+    data.select { |d| d.strategies.include?(strategy) }
+  end
+
+  def get_attribute_from_data(data, tag)
+    attribute = tag.class.name.downcase
+    data.select { |d| d if d.send(attribute).include?(tag.id) }
   end
 end
