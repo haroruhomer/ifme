@@ -4,13 +4,15 @@
 [![Backers on Open Collective](https://opencollective.com/ifme/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/ifme/sponsors/badge.svg)](#sponsors)
 
+README en: [Ingles](https://github.com/ifmeorg/ifme/blob/master/README.md), [Portugués](https://github.com/ifmeorg/ifme/blob/master/README-PT.md), [Francés](https://github.com/ifmeorg/ifme/blob/master/README-FR.md)
+
 # if me
 
 [if me](https://www.if-me.org/) una comunidad para experiencias de salud mental que alienta a las personas a compartir sus historias personales con aliados de confianza. Los aliados de confianza son las personas con las que interactuamos a diario, incluidos amigos, familiares, compañeros de trabajo, maestros y trabajadores de salud mental.
 
 Tratar con la salud mental es lo que nos hace humanos. Pero para muchos de nosotros, es una lucha ser abierto al respecto. No todos son consejeros o terapeutas. Las personas con las que interactuamos todos los días dan forma a nuestras emociones y comportamiento. Involucrarlos en el tratamiento de la salud mental es la clave para la recuperación.
 
-El sitio en vivo se puede encontrar en [if-me.org](https://www.if-me.org/).
+El sitio en vivo se puede encontrar en [if-me.org](https://www.if-me.org/). Los sistemas de diseño en vivo se pueden encontrar un [design.if-me.org](http://design.if-me.org/).
 
 Usamos el maravilloso [Pacto de Colaboradores](http://contributor-covenant.org) for
 opara nuestro código de conducta. Por favor
@@ -54,16 +56,18 @@ También tenemos una página de [Patreon](https://www.patreon.com/ifme) donde pu
 
 ¡Gracias a todos nuestros sponsors! (Por favor, pídale a su compañía que también respalde este proyecto de código abierto al  [convertirse en patrocinador](https://opencollective.com/ifme#sponsor))
 
-<a href="https://opencollective.com/ifme/sponsor/0/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/1/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/2/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/3/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/4/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/5/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/6/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/7/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/8/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/ifme/sponsor/9/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/9/avatar.svg"></a>
+<section role="presentation">
+ <a href="https://opencollective.com/ifme/sponsor/0/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/0/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/1/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/1/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/2/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/2/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/3/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/3/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/4/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/4/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/5/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/5/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/6/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/6/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/7/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/7/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/8/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/8/avatar.svg"></a>
+ <a href="https://opencollective.com/ifme/sponsor/9/website" target="_blank"><img src="https://opencollective.com/ifme/sponsor/9/avatar.svg"></a>
+</section>
 
 ## Licencia
 

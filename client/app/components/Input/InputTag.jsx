@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import Autocomplete from 'react-autocomplete';
+import Autosuggest from 'react-autosuggest';
 import type { Checkbox } from './utils';
 import { InputCheckbox } from './InputCheckbox';
 import inputCss from './Input.scss';
@@ -18,20 +18,24 @@ export type Props = {
 export type State = {
   checkboxes: Checkbox[],
   autocompleteLabel?: string,
-  autoHighlight: boolean,
+  suggestions: Checkbox[],
 };
 
 export class InputTag extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { checkboxes: props.checkboxes, autoHighlight: false };
+    this.state = {
+      checkboxes: props.checkboxes,
+      suggestions: props.checkboxes,
+      autocompleteLabel: '',
+    };
   }
 
   check = (id: string, checked: boolean) => {
     this.setState((prevState: State) => {
       let { checkboxes } = prevState;
       checkboxes = checkboxes.map((checkbox: Checkbox) => {
-        const newCheckbox = Object.assign({}, checkbox);
+        const newCheckbox = { ...checkbox };
         if (newCheckbox.id === id) {
           newCheckbox.checked = checked;
           const { onCheckboxChange } = this.props;
@@ -59,9 +63,35 @@ export class InputTag extends React.Component<Props, State> {
     }
   };
 
-  shouldItemRender = (checkbox: Checkbox, label: string) => {
-    const checkboxLabel = checkbox.label.toLowerCase();
-    return checkboxLabel.indexOf(label.toLowerCase()) > -1;
+  getSuggestions = (autocompleteLabel: string) => {
+    const inputValue = autocompleteLabel.trim().toLowerCase();
+    const inputLength = inputValue.length;
+    const { checkboxes } = this.state;
+    const suggestions: Checkbox[] = inputLength === 0
+      ? checkboxes
+      : checkboxes.filter(
+        (checkbox: Checkbox) => checkbox.label.toLowerCase().indexOf(inputValue) > -1,
+      );
+    return suggestions;
+  };
+
+  getSuggestionValue = (checkbox: Checkbox) => {
+    const { autocompleteLabel } = this.state;
+    return checkbox.label === autocompleteLabel ? checkbox.label : '';
+  };
+
+  onSuggestionsFetchRequested = ({ value }: { value: string }) => {
+    const newSuggestions = this.getSuggestions(value);
+    this.setState({
+      suggestions: newSuggestions,
+    });
+  };
+
+  onSuggestionsClearRequested = () => {
+    const { checkboxes } = this.props;
+    this.setState({
+      suggestions: checkboxes,
+    });
   };
 
   labelExistsUnchecked = (label: string) => {
@@ -74,22 +104,27 @@ export class InputTag extends React.Component<Props, State> {
     return checkboxWithLabel.length && checkboxWithLabel[0].id;
   };
 
-  onAutocompleteChange = (e: SyntheticEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
+  onAutocompleteChange = (
+    e: SyntheticEvent<HTMLInputElement>,
+    { newValue }: { newValue: string },
+  ) => {
     this.setState({
-      autocompleteLabel: value,
-      autoHighlight: !!this.labelExistsUnchecked(value),
+      autocompleteLabel: newValue,
     });
   };
 
-  onSelect = (label: string) => {
-    const id = this.labelExistsUnchecked(label);
+  onSelect = (
+    event: SyntheticEvent<HTMLInputElement>,
+    { suggestion, method }: { suggestion: Checkbox, method: string },
+  ) => {
+    if (method === 'enter') {
+      event.preventDefault();
+    }
+    const id = this.labelExistsUnchecked(suggestion.label);
     if (id) {
       this.check(id, true);
     }
   };
-
-  getLabel = (checkbox: Checkbox) => checkbox.label;
 
   displayCheckbox = (checkbox: Checkbox) => {
     const { name } = this.props;
@@ -107,6 +142,8 @@ export class InputTag extends React.Component<Props, State> {
     );
   };
 
+  shouldRenderSuggestions = () => true;
+
   onKeyPress = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
     const { onChange } = this.props;
     const { autocompleteLabel, checkboxes } = this.state;
@@ -117,42 +154,34 @@ export class InputTag extends React.Component<Props, State> {
   };
 
   displayAutocomplete = () => {
-    const { placeholder } = this.props;
-    const { autocompleteLabel, checkboxes, autoHighlight } = this.state;
+    const { id, placeholder } = this.props;
+    const { autocompleteLabel, suggestions } = this.state;
     return (
-      <Autocomplete
-        getItemValue={this.getLabel}
-        items={checkboxes}
-        renderItem={this.renderItem}
-        shouldItemRender={this.shouldItemRender}
-        value={autocompleteLabel}
-        onChange={this.onAutocompleteChange}
-        onSelect={this.onSelect}
+      <Autosuggest
+        className="tagMenu"
+        id={`autosuggest-${id}`}
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        onSuggestionSelected={this.onSelect}
+        highlightFirstSuggestion
+        shouldRenderSuggestions={this.shouldRenderSuggestions}
+        renderSuggestion={this.renderSuggestion}
+        getSuggestionValue={this.getSuggestionValue}
+        theme={css}
         inputProps={{
+          onChange: this.onAutocompleteChange,
+          value: autocompleteLabel || '',
           className: `tagAutocomplete ${inputCss.tagAutocomplete}`,
           onKeyPress: this.onKeyPress,
           placeholder,
         }}
-        wrapperStyle={{}}
-        renderMenu={this.renderMenu}
-        autoHighlight={autoHighlight}
       />
     );
   };
 
-  renderMenu = (items: any) => (
-    <div className={`tagMenu ${items.length ? css.tagMenu : ''}`}>{items}</div>
-  );
-
-  renderItem = (checkbox: Checkbox, highlighted: boolean) => (
-    <div
-      key={checkbox.id}
-      className={`tagLabel ${highlighted ? css.tagHighlighted : ''} ${
-        css.tagLabel
-      }`}
-    >
-      {checkbox.label}
-    </div>
+  renderSuggestion = (checkbox: Checkbox) => (
+    <div className="tagLabel">{checkbox.label}</div>
   );
 
   render() {

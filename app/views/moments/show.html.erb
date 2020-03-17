@@ -11,10 +11,10 @@
 </div>
 <div class="smallMarginTop">
   <%= react_component('StoryCategories', props: {
-    categories: @moment.category_names
+    categories: @moment.category_names_and_slugs
   }) %>
   <%= react_component('StoryMoods', props: {
-    moods: @moment.mood_names
+    moods: @moment.mood_names_and_slugs
   }) %>
 </div>
 
@@ -32,14 +32,14 @@
   </div>
 <% end %>
 
-<% if @moment.strategy.count > 0 %>
+<% if @moment.strategies.count > 0 %>
   <div class="smallMarginTop">
     <div class="label"><%= label_tag t('moments.show.strategies') %></div>
-    <% @moment.strategy.each do |item| %>
-      <div>
-        <%= link_to Strategy.find(item).name, Strategy.find(item) %>
-      </div>
-    <% end %>
+    <ul>
+      <% @moment.strategies.each do |item| %>
+          <li><%= link_to item.name, item %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
 

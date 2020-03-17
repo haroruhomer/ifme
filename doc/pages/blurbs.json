@@ -1,4 +1,5 @@
-[{
+[
+  {
     "name": "Julia Nguyen",
     "image": "/assets/contributors/julia_nguyen.jpg",
     "profile": "Being open and honest about my journey with obsessive-compulsive disorder, anxiety, and depression helps me to accept myself and reach out for support. My hope is to encourage others to feel more comfortable about sharing their experiences. Growing up as a daughter of Vietnamese refugee parents, it was difficult to talk about mental illness openly. I created if me as a tool to engage loved ones in mental health conversations. Working on the project openly has helped me to further explore my own mental health.",
@@ -208,7 +209,7 @@
   {
     "name": "Maribel Duran",
     "image": "/assets/contributors/maribel_duran.jpg",
-    "profile": "My mission is to inspire others to be healthy, kind, adventurous, and to celebrate life which is why I am contributing to applications that empower and motivate lives. I am so grateful to be part of this open source project that empowers people struggling with mental health to talk about their experiences.<br><br>To me, mental health means being able to cultivate energy, inner peace, and wellbeing. This the most important gift we can give to ourselves. However, in the pressured societies we live in, we are constantly surrounded by stress, threat, and other difficulties. It is easier to give into these negative feelings, but we can overcome this by fighting to think positive and promote mental health awareness. It’s not an easy battle, but it’s worth the fight :)",
+    "profile": "My mission is to inspire others to be healthy, kind, adventurous, and to celebrate life which is why I am contributing to applications that empower and motivate lives. I am so grateful to be part of this open source project that empowers people struggling with mental health to talk about their experiences.<br><br>To me, mental health means being able to cultivate energy, inner peace, and wellbeing. This the most important gift we can give to ourselves. However, in the pressured societies we live in, we are constantly surrounded by stress, threat, and other difficulties. It is easier to give into these negative feelings, but we can overcome this by fighting to think positive and promote mental health awareness. It’s not an easy battle, but it’s worth the fight :)",
     "location": "Danville, USA",
     "link_name": "maribelduran",
     "link": "http://github.com/maribelduran",
@@ -446,6 +447,114 @@
     "location": "Bay Area, CA",
     "link_name": "sananta",
     "link": "https://github.com/sananta",
+    "social": "github"
+  },
+  {
+    "name": "Valeria Kolisnyk",
+    "image": "/assets/contributors/valeria_kolisnyk.jpg",
+    "profile": "I’ve been struggling with attacks of aggression and periods of depression for several years now, so I understand how important it is to develop this application. This is my first pull-request to an open-source project and I glad that I contributed to ifme.",
+    "location": "Dnipro, Ukraine",
+    "link_name": "kolisnyklera",
+    "link": "https://github.com/kolisnyklera",
+    "social": "github"
+  },
+  {
+    "name": "Ellen Macpherson",
+    "image": "/assets/contributors/ellen_macpherson.jpg",
+    "profile": "I'm an Australian front end developer and customer experience expert based in the UK. I'm passionate about tech for social good, and having struggled with depression throughout my life, ifme seemed like a natural place for me to start contributing to open source.",
+    "location": "Belfast, UK",
+    "link_name": "ellen_dev",
+    "link": "https://twitter.com/ellen_dev",
+    "social": "twitter"
+  },
+  {
+    "name": "Abe Dolinger",
+    "image": "/assets/contributors/abe_dolinger.jpg",
+    "profile": "I'm a product designer, startup vet, sound recordist, musician, & software engineer.  I'm most proficient in Ruby on Rails, JS, and Python.  I'm a strong believer in increasing resources for, and awareness of, mental health, so I was very happy to find if-me!",
+    "location": "Seattle, WA",
+    "link_name": "abedolinger",
+    "link": "https://github.com/256hz",
+    "social": "github"
+  },
+  {
+    "name": "Manish Yadav",
+    "image": "/assets/contributors/manish_yadav.jpg",
+    "profile": "I think lots of people have mental problems but most deny or ignore it. Been through depression in 2015 and would never want to get there back again. Glad to be part of open source technology that uses technology for social good :). I'm a full time international student now at University of Florida 2021 batch.",
+    "location": "Gainesville, FL",
+    "link_name": "meanmachin3",
+    "link": "https://github.com/meanmachin3",
+    "social": "github"
+  },
+  {
+    "name": "Alline Marjorie",
+    "image": "/assets/contributors/alline_marjorie.jpg",
+    "profile": "I am a Software Engineer from Rio de Janeiro, Brazil. Mental health is really important and I feel happy contributing to a project that can help people improve and learn about themselves.",
+    "location": "Rio de Janeiro, Brazil",
+    "link_name": "alcoelho",
+    "link": "http://github.com/alcoelho",
+    "social": "github"
+  },
+  {
+    "name": "Julian Macmang",
+    "image": "/assets/contributors/julian_macmang.jpg",
+    "profile": "I'm a developer and a coffee enthusiast. I believe in spreading mental health awareness and empathy towards people battling mental health issues.",
+    "location": "Manila, Philippines",
+    "link_name": "julianmacmang",
+    "link": "https://github.com/sbpipb",
+    "social": "github"
+  },
+  {
+    "name": "Jeremiah Tabb",
+    "image": "/assets/contributors/jeremiah_tabb.jpg",
+    "profile": "I am a full stack engineer and composer. I contribute because mental health awareness is one of the most significant issues in our modern society, causing a lot of pain to a lot of people.",
+    "location": "Boulder, CO",
+    "link_name": "jollyjerr",
+    "link": "https://github.com/jollyjerr",
+    "social": "github"
+  },
+    {
+    "name": "Jasmine Logan",
+    "image": "/assets/contributors/jasmine_logan.png",
+    "profile": "I am a former music teacher turned developer attending Lambda School. I love podcasts and painting my nails in elaborate designs. I'm excited to contribute to a project that does so much good! ",
+    "location": "Kansas City, KS",
+    "link_name": "claridiva2000",
+    "link": "https://github.com/claridiva2000",
+    "social": "github"
+  },
+  {
+    "name": "M.Hassan Ahmed",
+    "image": "/assets/contributors/Hassan_Ahmed.png",
+    "profile": "A Python Enthusiast, Data Science Beginner and ReactJS Developer. I consider Mental Health as a crucial part of ones life. Alls well when the minds well, and sharing and talking about the mind's problems help us solve them. Ifme is a great platform to do so.",
+    "location": "Karachi, Pakistan",
+    "link_name": "hassan11196",
+    "link": "http://github.com/hassan11196",
+    "social": "github"
+  },
+  {
+    "name": "Sonu Toor",
+    "image": "/assets/contributors/sonu_toor.jpg",
+    "profile": "I'm a web developer based in Toronto. I contributed to this project because life can be tough, we all go through rough patches, some worse than others. If if-me helps even one person dealing with their tough times, the hours I (that all the contributors) spent working on it for me are completely vindicated. Life can be hard, let's all help one another when we can.",
+    "location": "Toronto, Canada",
+    "link_name": "SonuToor",
+    "link": "https://github.com/SonuToor",
+    "social": "github"
+  },
+  {
+    "name": "Tyler Walker",
+    "image": "/assets/contributors/tyler_walker.jpg",
+    "profile": "Full Stack web developer and IT nerd based in Tulsa, Oklahoma. I'm contributing to this project because I believe that mental health is extremely overlooked and stigmatized in today's society. I hope my work can help remove that stigma and provide an outlet for others to deal with their problems.",
+    "location": "Tulsa, Oklahoma",
+    "link_name": "twalker1998",
+    "link": "https://github.com/twalker1998",
+    "social": "github"
+  },
+  {
+    "name": "Nicholas Lee",
+    "image": "/assets/contributors/nicholas_lee.jpg",
+    "profile": "Web Developer out of Chicago, Illinois. I enjoy learning new things and helping out others. If Me caught my attention as a great application to work with mental health and a sound principle/Code of Conduct.",
+    "location": "Chicago, Illinois",
+    "link_name": "leeacto",
+    "link": "https://github.com/leeacto",
     "social": "github"
   }
 ]

@@ -5,10 +5,18 @@ import renderHTML from 'react-render-html';
 import { StoryBy } from '../../components/Story/StoryBy';
 import { StoryDate } from '../../components/Story/StoryDate';
 import { StoryActions } from '../../components/Story/StoryActions';
-import { DynamicForm } from '../../components/Form/DynamicForm';
+import DynamicForm from '../../components/Form/DynamicForm';
 import css from './Comments.scss';
 import { I18n } from '../../libs/i18n';
 import { Utils } from '../../utils';
+import type { FormProps } from '../../components/Form/utils';
+
+type CommentResponse = {
+  data: {
+    comment: string,
+    id: string,
+  },
+};
 
 type Comment = {
   id: number,
@@ -24,7 +32,7 @@ type Comment = {
 
 export type Props = {
   comments?: Comment[],
-  formProps: any,
+  formProps: FormProps,
 };
 
 export type State = {
@@ -40,7 +48,7 @@ export class Comments extends React.Component<Props, State> {
 
   onDeleteClick = (e: SyntheticEvent<HTMLInputElement>, action: string) => {
     e.preventDefault();
-    axios.delete(action).then((response: any) => {
+    axios.delete(action).then((response: CommentResponse) => {
       const { data } = response;
       if (data && data.id) {
         this.setState((prevState: State) => {
@@ -98,7 +106,7 @@ export class Comments extends React.Component<Props, State> {
     } = myComment;
     const author = <a href={`/profile?uid=${commentByUid}`}>{commentByName}</a>;
     return (
-      <div key={id} className={`comment ${css.comment}`}>
+      <article key={id} className={`comment ${css.comment}`}>
         <div className={css.commentContent}>{renderHTML(comment)}</div>
         <StoryDate date={createdAt} />
         <div className={css.commentInfo}>
@@ -114,11 +122,11 @@ export class Comments extends React.Component<Props, State> {
             hasStory
           />
         </div>
-      </div>
+      </article>
     );
   };
 
-  onCreate = (response: any) => {
+  onCreate = (response: CommentResponse) => {
     const { data } = response;
     if (data && data.comment) {
       this.setState((prevState: State) => {
@@ -135,9 +143,9 @@ export class Comments extends React.Component<Props, State> {
     const { comments } = this.state;
     if (comments.length === 0) return null;
     return (
-      <div className={css.comments}>
+      <section className={css.comments} aria-label={I18n.t('comment.plural')}>
         {comments.map((comment: Comment) => this.displayComment(comment))}
-      </div>
+      </section>
     );
   };
 

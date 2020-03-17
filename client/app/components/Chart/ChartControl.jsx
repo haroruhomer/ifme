@@ -35,10 +35,6 @@ export class ChartControl extends React.Component<
   chartControlProp,
   chartControlState,
 > {
-  props: chartControlProp;
-
-  state: chartControlState;
-
   constructor(props: chartControlProp) {
     super(props);
     this.state = {
@@ -57,7 +53,7 @@ export class ChartControl extends React.Component<
     const { types } = this.props;
     const { data, type } = this.state;
     return (
-      <div className={css.chartControl}>
+      <div className={css.chartControl} role="presentation">
         <div>
           {types.map((value: string) => (
             <ChartControlButton

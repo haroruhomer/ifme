@@ -1,78 +1,146 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { Form } from './index';
+import { Input } from '../Input';
+import { TYPES as INPUT_TYPES } from '../Input/utils';
+import css from './Form.scss';
+import { getNewInputs } from './utils';
+import type { Errors, MyInputProps, FormProps } from './utils';
 
 export type Props = {
-  nameValue?: string,
-  formProps: any,
+  nameValue?: string, // This is just for QuickCreate
+  formProps: FormProps,
   onCreate: Function,
 };
 
 export type State = {
-  formProps: any,
+  inputs: MyInputProps[],
+  errors: Errors,
 };
 
-export class DynamicForm extends React.Component<Props, State> {
-  myRef: any;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = { formProps: this.processFormProps() };
+const getInputsInitialState = (
+  formProps: FormProps,
+  nameValue?: string,
+): MyInputProps[] => {
+  const formInputs = formProps.inputs.filter(
+    (input: MyInputProps) => input !== {},
+  );
+  if (nameValue) {
+    formInputs[0].value = nameValue;
   }
+  return formInputs;
+};
 
-  processFormProps = () => {
-    const { nameValue, formProps } = this.props;
-    const processedFormProps = Object.assign({}, formProps);
-    if (nameValue) {
-      processedFormProps.inputs[0].value = nameValue;
+// TODO: Long-term, we should have React (instead of Rails) handle form submissions
+// so that we don't have to do this.
+const getParams = (inputs: MyInputProps[], myRefs: Object) => {
+  const params = {};
+  inputs.forEach((input: MyInputProps) => {
+    const { name, id } = input;
+    if (id !== 'submit') {
+      // Assumes name is in model[column] format
+      const indexOfFirstBracket = name.indexOf('[');
+      const model = name.substring(0, indexOfFirstBracket);
+      const column = name.substring(indexOfFirstBracket + 1, name.length - 1);
+      if (!params[model]) {
+        params[model] = {};
+      }
+      params[model][column] = myRefs[id] && myRefs[id].value;
     }
-    return processedFormProps;
+  });
+  return params;
+};
+
+export const hasErrors = (errors: Errors) => Object.values(errors).filter((key) => key).length;
+
+const DynamicForm = ({ nameValue, formProps, onCreate }: Props) => {
+  const [inputs, setInputs] = useState<MyInputProps[]>(
+    getInputsInitialState(formProps, nameValue),
+  );
+  const [errors, setErrors] = useState<Errors>({});
+
+  const myRefs: Object = {};
+
+  const handleError = (id: string, error: boolean) => {
+    const newErrors = { ...errors };
+    newErrors[id] = error;
+    setErrors(newErrors);
   };
 
-  getParams = () => {
-    const params = {};
-    const inputs = Array.from(this.myRef.querySelectorAll('input'));
-    const selects = Array.from(this.myRef.querySelectorAll('select'));
-    inputs.concat(selects).forEach((input: any) => {
-      if (input.id !== 'submit') {
-        // Assumes name is in model[column] format
-        const indexOfFirstBracket = input.name.indexOf('[');
-        const model = input.name.substring(0, indexOfFirstBracket);
-        const column = input.name.substring(
-          indexOfFirstBracket + 1,
-          input.name.length - 1,
-        );
-        if (!params[model]) {
-          params[model] = {};
-        }
-        params[model][column] = input.value;
-      }
+  const onSubmit = (e: SyntheticEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    // Get errors from inputs that were never focused
+    const { inputs: newInputs, errors: newErrors } = getNewInputs({
+      inputs,
+      errors,
+      refs: myRefs,
     });
-    return params;
+    if (hasErrors(newErrors) > 0) {
+      setInputs(newInputs);
+      setErrors(newErrors);
+    } else {
+      axios
+        .post(formProps.action, getParams(inputs, myRefs))
+        .then((response: Object) => {
+          if (onCreate) {
+            onCreate(response);
+          }
+        });
+      // TODO: Actually handle errors through catch()
+    }
   };
 
-  onSubmit = () => {
-    const { formProps } = this.state;
-    axios.post(formProps.action, this.getParams()).then((response: any) => {
-      const { onCreate } = this.props;
-      if (onCreate) {
-        onCreate(response);
-      }
-    });
-  };
-
-  render() {
-    const { formProps } = this.state;
-    return (
-      <Form
-        inputs={formProps.inputs}
-        noFormTag={formProps.noFormTag}
-        noFormTagSubmit={this.onSubmit}
-        noFormTagRef={(element) => {
-          this.myRef = element;
+  const displayInput = (input: MyInputProps) => (
+    <div key={input.id}>
+      <Input
+        id={input.id}
+        key={input.myKey}
+        type={input.type}
+        name={input.name}
+        label={input.label}
+        placeholder={input.placeholder}
+        error={input.error}
+        value={input.value}
+        readOnly={input.readOnly}
+        copyOnClick={input.copyOnClick}
+        disabled={input.disabled}
+        required={input.required}
+        info={input.info}
+        minLength={input.minLength}
+        maxLength={input.maxLength}
+        dark={input.dark}
+        large={input.large}
+        checked={input.checked}
+        uncheckedValue={input.uncheckedValue}
+        options={input.options}
+        checkboxes={input.checkboxes}
+        accordion={input.accordion}
+        onClick={input.type === 'submit' ? onSubmit : undefined}
+        onError={input.type !== 'submit' ? handleError : undefined}
+        myRef={(element) => {
+          myRefs[input.id] = element;
         }}
+        formNoValidate={input.type === 'submit'}
       />
-    );
-  }
-}
+    </div>
+  );
+
+  const displayInputs = () => inputs.map((input: MyInputProps) => {
+    if (INPUT_TYPES.includes(input.type)) {
+      return displayInput(input);
+    }
+    return null;
+  });
+
+  return <div className={css.form}>{displayInputs()}</div>;
+};
+
+// There's a [bug](https://github.com/shakacode/react_on_rails/issues/1198) with React on Rails,
+// so we'll need to do this in order to render multiple components with hooks on the same page.
+export default ({ nameValue, formProps, onCreate }: Props) => (
+  <DynamicForm
+    nameValue={nameValue}
+    formProps={formProps}
+    onCreate={onCreate}
+  />
+);

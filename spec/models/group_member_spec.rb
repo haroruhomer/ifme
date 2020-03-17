@@ -3,7 +3,7 @@
 #
 # Table name: group_members
 #
-#  id         :bigint(8)        not null, primary key
+#  id         :bigint           not null, primary key
 #  group_id   :integer
 #  user_id    :integer
 #  leader     :boolean
@@ -12,6 +12,18 @@
 #
 
 describe GroupMember do
+  context 'with validations' do
+    it { is_expected.to validate_presence_of :group_id }
+    it { is_expected.to validate_presence_of :user_id }
+  end
+
+  context 'with relations' do
+    it { is_expected.to belong_to :group }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to have_many(:meetings).through(:group) }
+    it { is_expected.to have_many(:meeting_memberships).through(:meetings) }
+  end
+
   it 'has a valid factory' do
     group_member = build :group_member
     expect(group_member).to be_valid

@@ -87,6 +87,8 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 
+  config.before { ActionMailer::Base.deliveries.clear }
+
   config.before(header: true) do
     config.include HiddenHeaderSupport
   end
@@ -95,5 +97,12 @@ RSpec.configure do |config|
     Capybara.reset_sessions!
     Capybara.use_default_driver
     Capybara.app_host = nil
+  end
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
   end
 end

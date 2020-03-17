@@ -2,17 +2,17 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { Avatar } from '../Avatar';
-import type { Profile } from './index';
+import type { Profile } from './types';
 import { Notifications } from '../../widgets/Notifications';
-import css from './Header.scss';
+import { Avatar } from '../Avatar';
+import css from './HeaderProfile.scss';
 import globalCSS from '../../styles/_global.scss';
 
 export type Props = {
   profile: Profile,
 };
 
-const notificationsElement = notifications => (
+const notificationsElement = (notifications) => (
   <button type="button" className="buttonGhostXS" aria-label={notifications}>
     <FontAwesomeIcon icon={faBell} />
   </button>
@@ -33,12 +33,7 @@ const displayInfoLinks = (headerProfile: Profile) => {
         </a>
       </div>
       <div>
-        <Notifications
-          element={notificationsElement(notifications.plural)}
-          plural={notifications.plural}
-          none={notifications.none}
-          clear={notifications.clear}
-        />
+        <Notifications element={notificationsElement(notifications.plural)} />
       </div>
     </div>
   );

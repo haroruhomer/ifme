@@ -4,7 +4,7 @@ describe StrategiesController do
   let(:user) { create(:user) }
   let(:strategy) { create(:strategy, user: user) }
 
-  describe 'GET index' do
+  describe '#index' do
     let(:strategy) { create(:strategy, name: 'test', user: user) }
 
     context 'when the user is logged in' do
@@ -43,7 +43,7 @@ describe StrategiesController do
     end
   end
 
-  describe 'GET show' do
+  describe '#show' do
     context 'when the user is logged in' do
       include_context :logged_in_user
 
@@ -80,7 +80,7 @@ describe StrategiesController do
     end
   end
 
-  describe 'POST premade' do
+  describe '#premade' do
     context 'when the user is logged in' do
       include_context :logged_in_user
 
@@ -103,14 +103,14 @@ describe StrategiesController do
     end
   end
 
-  describe 'POST quick_create' do
+  describe '#quick_create' do
     context 'when the user is not logged in' do
       before { post :quick_create }
       it_behaves_like :with_no_logged_in_user
     end
   end
 
-  describe 'GET new' do
+  describe '#new' do
     context 'when the user is logged in' do
       include_context :logged_in_user
 
@@ -126,7 +126,7 @@ describe StrategiesController do
     end
   end
 
-  describe 'GET edit' do
+  describe '#edit' do
     let(:another_user) { create(:user) }
     let!(:strategy1)   { create(:strategy, user: user) }
     let!(:strategy2)   { create(:strategy, user: another_user) }
@@ -160,7 +160,7 @@ describe StrategiesController do
     end
   end
 
-  describe 'POST create' do
+  describe '#create' do
     let(:valid_strategy_params) { attributes_for(:strategy) }
     let(:invalid_strategy_params) { valid_strategy_params.merge(name: nil) }
 
@@ -224,7 +224,7 @@ describe StrategiesController do
     end
   end
 
-  describe 'PATCH update' do
+  describe '#update' do
     let!(:strategy) { create(:strategy, user: user) }
     let(:valid_strategy_params)   { { description: 'updated description' } }
     let(:invalid_strategy_params) { { description: nil } }
@@ -233,25 +233,29 @@ describe StrategiesController do
       include_context :logged_in_user
 
       context 'when the params are valid' do
-        it 'updates the strategy record' do
+        before(:each) do
           patch :update, params: { id: strategy.id, strategy: valid_strategy_params }
+        end
+
+        it 'updates the strategy record' do
           expect(strategy.reload.description).to eq('updated description')
         end
 
         it 'redirects to the show page' do
-          patch :update, params: { id: strategy.id, strategy: valid_strategy_params }
           expect(response).to redirect_to(strategy_path(strategy))
         end
       end
 
       context 'when the params are invalid' do
-        it 'does not update the record' do
+        before(:each) do
           patch :update, params: { id: strategy.id, strategy: invalid_strategy_params }
+        end
+
+        it 'does not update the record' do
           expect(strategy.reload.description).to eq('Test Description')
         end
 
         it 'renders the edit view' do
-          patch :update, params: { id: strategy.id, strategy: invalid_strategy_params }
           expect(response).to render_template('edit')
         end
       end
@@ -266,7 +270,7 @@ describe StrategiesController do
     end
   end
 
-  describe 'DELETE destroy' do
+  describe '#destroy' do
     let!(:strategy) { create(:strategy, user: user) }
 
     context 'when the user is logged in' do
@@ -321,6 +325,32 @@ describe StrategiesController do
             'Daily reminder email</div>'
           )
         )
+      end
+    end
+  end
+
+  describe '#tagged' do
+    let!(:category) { create(:category, user_id: user.id) }
+    let!(:strategy) { create(:strategy, user_id: user.id, category: [category.id]) }
+
+    context 'when the user is logged in' do
+      include_context :logged_in_user
+      before do
+        get :tagged, params: { page: 1, category_id: category.id }, format: :json
+      end
+
+      it 'returns a response with the correct path' do
+        expect(JSON.parse(response.body)['data'].first['link']).to eq strategy_path(strategy)
+      end
+    end
+
+    context 'when the user is not logged in' do
+      before do
+        get :tagged, params: { page: 1, category_id: category.id }, format: :json
+      end
+
+      it 'returns a no_content status' do
+        expect(response).to have_http_status(:no_content)
       end
     end
   end

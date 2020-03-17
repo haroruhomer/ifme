@@ -14,20 +14,24 @@ sv:
   expand_menu: 'expandera menyn'
   close: stänga
   load_more: 'Ladda mer'
+  of: 'av'
   languages:
     en: English
     es: Español
     nl: Nederlands
     pt-BR: Português
     sv: Svenska
-    various: Olika
+    various_languages: 'Olika språk'
     vi: 'Tiếng Việt'
     it: Italiano
     nb: Norsk
     de: Deutsch
     fr: Français
     hi: 'हिंदी'
+    zh-CN: 中文
   navigation:
+    main_menu: 'Huvudsidan meny'
+    user_menu: 'Användarmeny'
     about: Om
     blog: Blogg
     contribute: Medverkande
@@ -388,8 +392,7 @@ sv:
       main_message_two: 'Att hantera mental hälsa är det som gör oss mänskliga. Men för många av oss är det en kamp att vara öppen om det.'
       message_text_two: '<p>Inte alla är en rådgivare eller terapeut. De människor som vi interagerar med varje dag formar våra känslor och beteende. Att få dem att delta i mentalvård är nyckeln till återhämtning.</p><p class="subtitle">"Det är inte bara allt i ditt huvud, det är runt dig. Vi kan läka tillsammans."</p><p>Mental hälsa är en sådan individ och unik upplevelse. Inga två hjärnor är lika! Att hantera problemet kräver idéer från alla, varför projektet är öppen källkod.</p>'
       main_message_three: 'Vill du hjälpa till att finansiera oss?'
-      message_text_three: 'Vår app är ett <u>fullständigt</u> öppen källkods-projekt. Det är byggt och underhållet av volontärer med många olika bakgrunder och kunskaper.</p><p>År 2016 mottog vi ett stipendium från %{linebreak_link}. År 2017 mottog vi finansiering från %{fund_club_link}.</p>Du kan stödja oss genom att donera till vår %{patreon_link}.</p>'
-      linebreak: Linebreak
+      message_text_three: 'Vår app är ett <u>fullständigt</u> öppen källkods-projekt. Det är byggt och underhållet av volontärer med många olika bakgrunder och kunskaper.</p><p>År 2016 mottog vi ett stipendium från Linebreak. År 2017 mottog vi finansiering från %{fund_club_link}.</p>Du kan stödja oss genom att donera till vår %{patreon_link}.</p>'
       fund_club: 'Fund Club'
     blog:
       description: 'Om du är intresserad av att skriva för oss, pitcha oss på %{email}! Vi välkomnar anonyma inlägg också.'
@@ -462,11 +465,12 @@ sv:
       contact_description: '<p>Vänligen %{email_link} om du har några frågor eller problem.</p><p class="noMarginBottom"><em>Sekretesspolicy anpassad från %{jamie_king_media}.</em></p>'
     resources:
       description: 'Det här är vår kurerade lista över mentala resurser, som inkluderar samhällen, pedagogiska verktyg, hotlines och tjänster.'
-      communities: Gemenskaperna
-      education: Utbildning
-      hotlines: Direktlinje
-      services: Tjänster
+      emergency: 'Om du eller någon som du känner upplever en kris i psykisk hälsa, räcka ut hjälp så snart som möjligt.'
       tags:
+        communities: gemenskaperna
+        education: utbildning
+        hotlines: direktlinje
+        services: tjänster
         people_of_colour: 'människor av färg'
         women_of_colour: 'kvinnor av färg'
         black_women: 'svarta kvinnor'
@@ -555,6 +559,20 @@ sv:
         senior_citizens: pensionärer
         black_people: 'Mörka personer'
         sexual_health: 'sexuell hälsa'
+        hackathon: hackathon
+        stories: berättelser
+        teen: tonåring
+        coaching: coaching
+        physical_dependence: 'fysiskt beroende'
+        codependency: medberoende
+        relationships: relationer
+        alcoholism: alkoholism
+        cbt: CBT
+        chrome: chrome
+        firefox: firefox
+        social_media_break: 'sociala mediebrott'
+        quiz: frågesport
+        attachment: anknytning
   profile:
     index:
       title: Profil

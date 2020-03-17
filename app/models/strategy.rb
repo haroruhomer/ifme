@@ -3,9 +3,8 @@
 #
 # Table name: strategies
 #
-#  id           :bigint(8)        not null, primary key
+#  id           :bigint           not null, primary key
 #  user_id      :integer
-#  category     :text
 #  description  :text
 #  viewers      :text
 #  comment      :boolean
@@ -22,13 +21,15 @@ class Strategy < ApplicationRecord
   extend FriendlyId
 
   friendly_id :name
-  serialize :category, Array
   serialize :viewers, Array
 
-  before_save :array_data_to_i!
+  before_save :category_array_data
+  before_save :viewers_array_data
 
   belongs_to :user
   has_many :comments, as: :commentable
+  has_many :strategies_categories, dependent: :destroy
+  has_many :categories, through: :strategies_categories
 
   has_one :perform_strategy_reminder
   accepts_nested_attributes_for :perform_strategy_reminder
@@ -40,13 +41,23 @@ class Strategy < ApplicationRecord
   scope :published, -> { where.not(published_at: nil) }
   scope :recent, -> { order('created_at DESC') }
 
+  has_many :moments_strategies, dependent: :destroy
+
+  attr_accessor :category
+
   def active_reminders
     [perform_strategy_reminder].select(&:active?) if perform_strategy_reminder
   end
 
-  def array_data_to_i!
-    category.map!(&:to_i)
-    viewers.map!(&:to_i)
+  def viewers_array_data
+    self.viewers = viewers.collect(&:to_i) if viewers.is_a?(Array)
+  end
+
+  def category_array_data
+    return unless category.is_a?(Array)
+
+    category_ids = category.collect(&:to_i)
+    self.categories = Category.where(user_id: user_id, id: category_ids)
   end
 
   def published?

@@ -3,10 +3,8 @@
 #
 # Table name: moments
 #
-#  id                      :bigint(8)        not null, primary key
-#  category                :text
+#  id                      :bigint           not null, primary key
 #  name                    :string
-#  mood                    :text
 #  why                     :text
 #  fix                     :text
 #  created_at              :datetime
@@ -14,7 +12,6 @@
 #  user_id                 :integer
 #  viewers                 :text
 #  comment                 :boolean
-#  strategy                :text
 #  slug                    :string
 #  secret_share_identifier :uuid
 #  secret_share_expires_at :datetime
@@ -27,10 +24,7 @@ class Moment < ApplicationRecord
   extend FriendlyId
 
   friendly_id :name
-  serialize :category, Array
   serialize :viewers, Array
-  serialize :mood, Array
-  serialize :strategy, Array
 
   before_save :category_array_data
   before_save :viewers_array_data
@@ -40,6 +34,12 @@ class Moment < ApplicationRecord
   belongs_to :user
 
   has_many :comments, as: :commentable
+  has_many :moments_moods, dependent: :destroy
+  has_many :moods, through: :moments_moods
+  has_many :moments_categories, dependent: :destroy
+  has_many :categories, through: :moments_categories
+  has_many :moments_strategies, dependent: :destroy
+  has_many :strategies, through: :moments_strategies
 
   validates :comment, inclusion: [true, false]
   validates :user_id, :name, :why, presence: true
@@ -50,6 +50,10 @@ class Moment < ApplicationRecord
   scope :published, -> { where.not(published_at: nil) }
   scope :recent, -> { order('created_at DESC') }
 
+  attr_accessor :mood
+  attr_accessor :category
+  attr_accessor :strategy
+
   def self.find_secret_share!(identifier)
     find_by!(
       # 'secret_share_expires_at > NOW()', TODO: Turn off temporarily
@@ -58,7 +62,10 @@ class Moment < ApplicationRecord
   end
 
   def category_array_data
-    self.category = category.collect(&:to_i) if category.is_a?(Array)
+    return unless category.is_a?(Array)
+
+    category_ids = category.collect(&:to_i)
+    self.categories = Category.where(user_id: user_id, id: category_ids)
   end
 
   def viewers_array_data
@@ -66,11 +73,17 @@ class Moment < ApplicationRecord
   end
 
   def mood_array_data
-    self.mood = mood.collect(&:to_i) if mood.is_a?(Array)
+    return unless mood.is_a?(Array)
+
+    mood_ids = mood.collect(&:to_i)
+    self.moods = Mood.where(user_id: user_id, id: mood_ids)
   end
 
   def strategy_array_data
-    self.strategy = strategy.collect(&:to_i) if strategy.is_a?(Array)
+    return unless strategy.is_a?(Array)
+
+    strategy_ids = strategy.collect(&:to_i)
+    self.strategies = Strategy.where(user_id: user_id, id: strategy_ids)
   end
 
   def owned_by?(user)

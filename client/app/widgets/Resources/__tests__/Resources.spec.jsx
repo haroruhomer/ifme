@@ -3,7 +3,8 @@ import { mount } from 'enzyme';
 import React from 'react';
 import { Resources } from '../index';
 
-const getComponent = props => (
+// eslint-disable-next-line react/prop-types
+const getComponent = ({ history } = {}) => (
   <Resources
     keywords={[]}
     resources={[
@@ -20,24 +21,48 @@ const getComponent = props => (
           'iOS',
         ],
         languages: ['English', 'Español'],
-        type: 'Services',
       },
       {
         name: 'A Canvas of the Minds',
         link: 'https://acanvasoftheminds.com/',
         tags: ['free', 'blog'],
         languages: ['English'],
-        type: 'Communities',
       },
     ]}
-    {...props}
+    history={history}
   />
 );
 
 describe('Resources', () => {
+  it('adds tag to filter when tag label clicked', () => {
+    const wrapper = mount(getComponent());
+    expect(wrapper.find('.resource').length).toEqual(2);
+    expect(wrapper.find('.tags').exists()).toEqual(true);
+    expect(wrapper.text()).toContain('2 of 2');
+    const id = wrapper
+      .find('.tag')
+      .at(2)
+      .text();
+    expect(id).toEqual('therapy');
+    wrapper
+      .find('.tag')
+      .at(2)
+      .simulate('click');
+    expect(wrapper.find('.checkboxLabel').text()).toEqual(id);
+    expect(wrapper.find('.resource').length).toEqual(1);
+    expect(wrapper.text()).toContain('1 of 1');
+    expect(
+      wrapper
+        .find('.tag')
+        .findWhere((t) => t.text() === id)
+        .exists(),
+    ).toEqual(true);
+  });
+
   it('filters when tag selected', () => {
     const wrapper = mount(getComponent());
     expect(wrapper.find('.resource').length).toEqual(2);
+    expect(wrapper.text()).toContain('2 of 2');
     wrapper.find('.tagAutocomplete').simulate('focus');
     expect(wrapper.find('.tagMenu').exists()).toEqual(true);
     const id = wrapper
@@ -51,14 +76,19 @@ describe('Resources', () => {
       .simulate('click');
     expect(wrapper.find('.checkboxLabel').text()).toEqual(id);
     expect(wrapper.find('.resource').length).toEqual(1);
-    expect(wrapper.find('.tag').findWhere(t => t.text() === id).length).toEqual(
-      1,
-    );
+    expect(wrapper.text()).toContain('1 of 1');
+    expect(
+      wrapper
+        .find('.tag')
+        .findWhere((t) => t.text() === id)
+        .exists(),
+    ).toEqual(true);
   });
 
   it('unfilters when tag unselected', () => {
     const wrapper = mount(getComponent());
     expect(wrapper.find('.resource').length).toEqual(2);
+    expect(wrapper.text()).toContain('2 of 2');
     wrapper.find('.tagAutocomplete').simulate('focus');
     const id = wrapper
       .find('.tagLabel')
@@ -70,11 +100,13 @@ describe('Resources', () => {
       .at(0)
       .simulate('click');
     expect(wrapper.find('.resource').length).toEqual(1);
+    expect(wrapper.text()).toContain('1 of 1');
     wrapper.find(`input#${id}`).prop('onChange')({
       currentTarget: { checked: false },
     });
     wrapper.update();
     expect(wrapper.find('.resource').length).toEqual(2);
+    expect(wrapper.text()).toContain('2 of 2');
   });
 
   describe('when the component updates', () => {
@@ -95,9 +127,9 @@ describe('Resources', () => {
 
         wrapper.setState({
           checkboxes: [
-            { checked: true, value: 'alfredo' },
-            { checked: true, value: 'batman' },
-            { checked: false, value: 'vitor' },
+            { checked: true, value: 'alfredo', label: 'Alfredo' },
+            { checked: true, value: 'batman', label: 'Batman' },
+            { checked: false, value: 'vitor', label: 'Vitor' },
           ],
         });
 

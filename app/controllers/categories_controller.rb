@@ -4,12 +4,12 @@ class CategoriesController < ApplicationController
   include CollectionPageSetupConcern
   include CategoriesHelper
   include Shared
+  include TagsHelper
   before_action :set_category, only: %i[show edit update destroy]
   respond_to :json, only: [:index]
 
   # GET /categories
   # GET /categories.json
-
   def index
     page_collection('@categories', 'category')
     respond_to do |format|
@@ -26,6 +26,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    setup_stories
     redirect_to_path(categories_path) if @category.user_id != current_user.id
   end
 

@@ -7,13 +7,23 @@
     "name": "William Horton",
     "link": "https://github.com/wdhorton"
   },
+  
+  {
+    "name": "Palak Sharma",
+    "link": "https://github.com/developer22-university"
+    
+  },
   {
     "name": "Bella Woo",
     "link": "https://github.com/bellawoo"
   },
   {
+    "name": "Seung Joon Lee",
+    "link": "https://github.com/ericlee1996"
+  },
+  {
     "name": "Julie Pagano",
-    "link": "https://github.com/juliapagano"
+    "link": "https://github.com/juliepagano"
   },
   {
     "name": "Fiona Conn",
@@ -77,7 +87,7 @@
   },
   {
     "name": "Noah Finnerman",
-    "link": "https://github.com/nonothetoad"
+    "link": "https://github.com/noahfin"
   },
   {
     "name": "David Tomberlin",
@@ -113,7 +123,7 @@
   },
   {
     "name": "Michelle Liauw",
-    "link": "https://github.com/techiemichelle"
+    "link": "https://github.com/techiechelle"
   },
   {
     "name": "Kerry Benjamin",
@@ -169,7 +179,7 @@
   },
   {
     "name": "Bruno Casali",
-    "link": "https://brunoocasali.xyz"
+    "link": "https://github.com/brunoocasali"
   },
   {
     "name": "Tracy Lum",
@@ -177,11 +187,11 @@
   },
   {
     "name": "Susan Esho",
-    "link": "https://github.com/andela-oesho"
+    "link": "https://github.com/susanesho"
   },
   {
     "name": "Daniel Chinedu",
-    "link": "https://github.com/andela-cdaniel"
+    "link": "https://github.com/blueyedgeek"
   },
   {
     "name": "Eric Stermer",
@@ -261,7 +271,7 @@
   },
   {
     "name": "Daniel Sauve",
-    "link": "https://www.linkedin.com/in/daniel-sauve/"
+    "link": "https://github.com/DanielSauve"
   },
   {
     "name": "Luke Inglis",
@@ -277,10 +287,22 @@
   },
   {
     "name": "Oubah Awaleh",
-    "link": "https://twitter.com/AwalehOubah"
+    "link": "https://github.com/oubawaleh"
   },
   {
     "name": "Itzel Ventura",
     "link": "https://github.com/venit1123"
+  },
+  {
+    "name": "Guilherme Cabral Vannuchi",
+    "link": "https://github.com/guilhermekbral"
+  },
+  {
+    "name": "Erica Pramer",
+    "link": "https://github.com/thumbsupep"
+  },
+  {
+    "name": "Brice Yokoyama",
+    "link": "https://github.com/briceyokoyama"
   }
 ]

@@ -2,15 +2,21 @@
 module CommonMethods
   extend ActiveSupport::Concern
 
-  def mood_names
-    return unless attribute(:mood)
+  def mood_names_and_slugs
+    return unless self.class.reflect_on_association(:moods)
 
-    Mood.where(id: mood).pluck(:name)
+    names_and_slugs_hash(moods.pluck(:name, :slug), 'moods')
   end
 
-  def category_names
-    return unless attribute(:category)
+  def category_names_and_slugs
+    return unless self.class.reflect_on_association(:categories)
 
-    Category.where(id: category).pluck(:name)
+    names_and_slugs_hash(categories.pluck(:name, :slug), 'categories')
+  end
+
+  private
+
+  def names_and_slugs_hash(data, model_name)
+    data.map { |name, slug| { name: name, slug: "/#{model_name}/#{slug}" } }
   end
 end
