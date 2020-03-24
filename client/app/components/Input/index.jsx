@@ -6,6 +6,7 @@ import { InputError } from './InputError';
 import { InputSubmit } from './InputSubmit';
 import { InputCheckbox } from './InputCheckbox';
 import { InputCheckboxGroup } from './InputCheckboxGroup';
+import { InputPassword } from './InputPassword';
 import { InputSelect } from './InputSelect';
 import { InputTag } from './InputTag';
 import { InputSwitch } from './InputSwitch';
@@ -33,6 +34,7 @@ const Input = ({
   options,
   min,
   max,
+  autoComplete,
   myRef,
   dark,
   large,
@@ -75,6 +77,7 @@ const Input = ({
         maxLength={maxLength}
         min={min}
         max={max}
+        autoComplete={autoComplete}
         hasError={(errorPresent: boolean) => hasError(errorPresent)}
         myRef={myRef}
         label={label}
@@ -210,13 +213,30 @@ const Input = ({
   };
 
   const displayLocation = () => {
-    if (type === 'location' && placeholder && googleAPIKey) {
+    if (type === 'location' && googleAPIKey && label) {
       return (
         <InputLocation
           value={value}
-          placeholder={placeholder}
+          label={label}
           apiKey={googleAPIKey}
           id={id}
+          name={name}
+        />
+      );
+    }
+    return null;
+  };
+
+  const displayPassword = () => {
+    if (type === 'password') {
+      return (
+        <InputPassword
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          required={required}
+          label={label}
+          hasError={(errorPresent: boolean) => hasError(errorPresent)}
         />
       );
     }
@@ -236,12 +256,13 @@ const Input = ({
         small ? css.small : ''
       } ${type === 'hidden' ? css.hidden : ''}`}
     >
-      {!accordion && (
+      {!accordion && REQUIRES_LABEL.includes(type) && label && (
         <div className={css.labelNoAccordion}>{displayLabel()}</div>
       )}
       {displayDefault()}
       {displayCheckbox()}
       {displayCheckboxGroup()}
+      {displayPassword()}
       {displaySelect()}
       {displayTextarea()}
       {displayTag()}

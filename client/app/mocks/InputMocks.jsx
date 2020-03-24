@@ -53,6 +53,13 @@ const inputSelectProps = {
   options,
 };
 
+const inputPasswordProps = {
+  id: 'some-password-id',
+  type: 'password',
+  name: 'some-password-name',
+  label: 'Some Password Label',
+};
+
 const inputCheckboxProps = {
   id: 'some-checkbox-id',
   type: 'checkbox',
@@ -114,6 +121,7 @@ export const InputMocks = {
   inputSubmitProps,
   inputTagProps,
   inputSwitchProps,
+  inputPasswordProps,
   event,
   createInput,
 };
